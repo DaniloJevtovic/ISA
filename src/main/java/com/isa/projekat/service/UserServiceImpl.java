@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUserById(Long id) {
 		// TODO Auto-generated method stub
-		Assert.notNull(id);
+		Assert.notNull(id, "Id ne moze biti null");
 		return this.userRepository.findUserById(id);
 	}
 	
