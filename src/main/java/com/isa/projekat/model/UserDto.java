@@ -1,41 +1,28 @@
 package com.isa.projekat.model;
 
-import java.io.Serializable;
-
-import javax.persistence.*;
-
-@Entity
-public class User implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class UserDto {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="user_email", nullable = false)
 	private String email;
-	
-	@Column(name="user_password", nullable = false)
-	private String password;
-	
-	@Column(name="user_name", nullable = true)
 	private String name;
-	
-	@Column(name="user_surname", nullable = true)
 	private String surname;
-		
-	@Column(name="user_city", nullable = true)
+	private String password;
 	private String city;
-	
-	@Column(name="user_phone", nullable = true)
 	private String phone;
-	
-	@Column(name="user_type", nullable = false)
 	private UserType userType;
-	
-	@Column(name="user_verified", nullable = false)
 	private boolean verified;
+
+	public UserDto(User user) {
+		this.id = user.getId();
+		this.email=user.getEmail();
+		this.name = user.getName();
+		this.surname = user.getSurname();
+		this.password = user.getPassword();
+		this.city = user.getCity();
+		this.phone = user.getPhone();
+		this.userType = user.getUserType();
+		this.verified = user.isVerified();
+	}
 
 	public Long getId() {
 		return id;
@@ -53,14 +40,6 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -75,6 +54,14 @@ public class User implements Serializable {
 
 	public void setSurname(String surname) {
 		this.surname = surname;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getCity() {
@@ -97,8 +84,8 @@ public class User implements Serializable {
 		return userType;
 	}
 
-	public void setUserType(UserType usertype) {
-		this.userType = usertype;
+	public void setUserType(UserType userType) {
+		this.userType = userType;
 	}
 
 	public boolean isVerified() {
