@@ -1,21 +1,28 @@
 package com.isa.projekat.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.Repository;
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.isa.projekat.model.User;
 
-public interface UserRepository extends Repository<User, Long> {
+@Repository
+public interface UserRepository extends JpaRepository<User,Long> {
 	
-	public Page<User> findAll(Pageable pageable);
+	User findById(Long id);
 	
-	@Query("select u from User u where u.email = ?1")
-	public User findUser(String email);
+	User findByEmail(String email);
 	
-	@Query("select u from User u where u.userId = ?1")
-	public User findUserById(Long id);
+	List<User> findByName(String name);
 	
-	public User save(User user);
+	List<User> findBySurname(String surname);
+	
+	List<User> findByNameAndSurname(String name, String surname);
+	
+	List<User> findByNameStartingWith(String name);
+	
+	List<User> findBySurnameStartingWith(String surname);
+	
+	List<User> findByNameAndSurnameStartingWith(String name, String surname);
 }
