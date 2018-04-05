@@ -1,12 +1,21 @@
 package com.isa.projekat.service;
 
-import org.springframework.data.domain.Page;
+import java.util.List;
 
 import com.isa.projekat.model.User;
 
 public interface UserService {
 	
-	Page<User> findUsers();
-	User getUser(String email);
-	User getUserById(Long id);
+	List<User> findAll();
+	User findByEmail(String email);
+	User findById(Long id);
+	List<User> searchUsers(String name,String surname);
+	
+	User login(User user);
+	
+	void sendVerificationMail(User user);
+	boolean verifyEmail(Long id);
+	User save(User user);
+	
+	
 }
