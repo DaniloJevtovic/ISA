@@ -11,7 +11,7 @@ $(document).on('submit','.form-signin', function(e) {
 		success : function(data) {
 			if(data != null) {
 			sessionStorage.setItem('loggedUser',JSON.stringify(data));
-			window.location.href='index.html';
+			window.location.href='profile.html';	//ulogovanog korisnika prebaci na njegovu stranicu
 			}else{
 				
 			}
