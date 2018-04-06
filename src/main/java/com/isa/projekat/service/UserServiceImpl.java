@@ -97,5 +97,37 @@ public class UserServiceImpl implements UserService {
 		userRepository.save(user);
 		return true;
 	}
+
+	@Override
+	public User editUser(User user, Long id) {
+		// TODO Auto-generated method stub
+		User currentUser = userRepository.findById(id);
+		
+		if(user.getEmail() != null){
+			currentUser.setEmail(currentUser.getEmail());
+		}
+		
+		if(user.getName() != null){
+			currentUser.setName(user.getName());
+		}
+		
+		if(user.getSurname() != null){
+			currentUser.setSurname(user.getSurname());
+		}
+		
+		if(user.getCity() != null){
+			currentUser.setCity(user.getCity());
+		}
+		
+		if(user.getPhone() != null){
+			currentUser.setPhone(user.getPhone());
+		}
+		
+		if(user.getPassword() != null){
+			currentUser.setPassword(user.getPassword());
+		}
+		
+		return userRepository.save(currentUser);
+	}
 	
 }

@@ -17,5 +17,6 @@ public interface UserService {
 	boolean verifyEmail(Long id);
 	User save(User user);
 	
+	User editUser(User user, Long id);
 	
 }
