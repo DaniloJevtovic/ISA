@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User save(User user) {
 		// TODO Auto-generated method stub
+		user.setVerified(false);
 		user.setUserType(UserType.REGISTROVAN);	//samo privremeno!!! ispravi
 		return userRepository.save(user);
 	}
@@ -92,8 +93,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean verifyEmail(Long id) {
 		// TODO Auto-generated method stub
-		User user = userRepository.findById(id);
-		user.setVerified(true);
+		User user = userRepository.findById(id);		
+		user.setVerified(true);		//
 		userRepository.save(user);
 		return true;
 	}
