@@ -12,6 +12,7 @@ public class CinemaTheatreDto {
 		this.id = cinemaTheatre.getId();
 		this.name = cinemaTheatre.getName();
 		this.adress = cinemaTheatre.getAdress();
+		this.description = cinemaTheatre.getDescription();
 		this.type = cinemaTheatre.getType();
 	}
 
