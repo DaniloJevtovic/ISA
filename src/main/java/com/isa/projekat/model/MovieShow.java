@@ -1,12 +1,19 @@
 package com.isa.projekat.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class MovieShow implements Serializable {
@@ -16,6 +23,9 @@ public class MovieShow implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	
+	@Column(name="ms_type", nullable = false)		//film/predstava
+	private MovieShowType type;
 	
 	@Column(name="ms_name", nullable = false)
 	private String name;
@@ -41,14 +51,20 @@ public class MovieShow implements Serializable {
 	@Column(name="ms_poster", nullable = false)
 	private String poster;
 	
-	public MovieShow() {
-		// TODO Auto-generated constructor stub
-	}
+	@ManyToOne()
+	@JoinColumn(name = "ms_repertoire")
+	@JsonBackReference
+	private Repertoire repertoire;
 	
-	public MovieShow(Long id, String name, MovieShowGenre genre, String description, String actors, String duration,
-			String rating, String director, String poster) {
+	@OneToMany(fetch = FetchType.EAGER)
+	private List<Projection> projections;
+	
+	public MovieShow(Long id, MovieShowType type, String name, MovieShowGenre genre, String description, String actors,
+			String duration, String rating, String director, String poster, Repertoire repertoire,
+			List<Projection> projections) {
 		super();
 		this.id = id;
+		this.type = type;
 		this.name = name;
 		this.genre = genre;
 		this.description = description;
@@ -57,6 +73,8 @@ public class MovieShow implements Serializable {
 		this.rating = rating;
 		this.director = director;
 		this.poster = poster;
+		this.repertoire = repertoire;
+		this.projections = projections;
 	}
 
 	public Long getId() {
@@ -65,6 +83,14 @@ public class MovieShow implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public MovieShowType getType() {
+		return type;
+	}
+
+	public void setType(MovieShowType type) {
+		this.type = type;
 	}
 
 	public String getName() {
@@ -129,6 +155,22 @@ public class MovieShow implements Serializable {
 
 	public void setPoster(String poster) {
 		this.poster = poster;
+	}
+
+	public Repertoire getRepertoire() {
+		return repertoire;
+	}
+
+	public void setRepertoire(Repertoire repertoire) {
+		this.repertoire = repertoire;
+	}
+
+	public List<Projection> getProjections() {
+		return projections;
+	}
+
+	public void setProjections(List<Projection> projections) {
+		this.projections = projections;
 	}
 
 }
