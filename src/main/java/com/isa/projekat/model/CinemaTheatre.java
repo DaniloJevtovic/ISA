@@ -37,6 +37,8 @@ public class CinemaTheatre implements Serializable {
 	
 	@OneToOne(targetEntity = Repertoire.class)
 	private Repertoire repertoire;
+	
+	public CinemaTheatre() {}
 
 	public CinemaTheatre(Long id, String name, String adress, String description, CinemaTheatreType type,
 			List<Hall> halls, Repertoire repertoire) {
