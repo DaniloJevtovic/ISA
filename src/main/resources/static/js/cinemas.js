@@ -11,7 +11,7 @@ var cinemas="../api/cinemastheatres/getCinemas"
                               <td>`+data[i].name+`</td>
                               <td>`+data[i].adress+`</td>
                               <td>`+data[i].description+`</td>
-                              <td align="center"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0">Pogledaj</button></td>
+                              <td align="center"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#cinemaModal">Pogledaj</button></td>
                           </tr>`);
 			 }
 		 },
