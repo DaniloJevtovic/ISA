@@ -29,6 +29,8 @@ public class Repertoire implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "repertoire")
 	private List<MovieShow> movieShows;
 
+	public Repertoire() {}
+	
 	public Repertoire(Long id, CinemaTheatre cinemaTheatre, List<MovieShow> movieShows) {
 		super();
 		this.id = id;
