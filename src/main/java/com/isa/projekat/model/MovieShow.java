@@ -59,9 +59,14 @@ public class MovieShow implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER)
 	private List<Projection> projections;
 	
+	@ManyToOne
+	private CinemaTheatre cinemaTheatre;
+	
+	public MovieShow() {}
+	
 	public MovieShow(Long id, MovieShowType type, String name, MovieShowGenre genre, String description, String actors,
 			String duration, String rating, String director, String poster, Repertoire repertoire,
-			List<Projection> projections) {
+			List<Projection> projections, CinemaTheatre cinemaTheatre) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -75,6 +80,7 @@ public class MovieShow implements Serializable {
 		this.poster = poster;
 		this.repertoire = repertoire;
 		this.projections = projections;
+		this.cinemaTheatre = cinemaTheatre;
 	}
 
 	public Long getId() {
@@ -171,6 +177,14 @@ public class MovieShow implements Serializable {
 
 	public void setProjections(List<Projection> projections) {
 		this.projections = projections;
+	}
+
+	public CinemaTheatre getCinemaTheatre() {
+		return cinemaTheatre;
+	}
+
+	public void setCinemaTheatre(CinemaTheatre cinemaTheatre) {
+		this.cinemaTheatre = cinemaTheatre;
 	}
 
 }

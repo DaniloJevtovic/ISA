@@ -13,19 +13,17 @@ public class MovieShowDto {
 	private String director;
 	private String poster;
 	
-	public MovieShowDto(Long id, MovieShowType type, String name, MovieShowGenre genre, String description,
-			String actors, String duration, String rating, String director, String poster) {
-		super();
-		this.id = id;
-		this.type = type;
-		this.name = name;
-		this.genre = genre;
-		this.description = description;
-		this.actors = actors;
-		this.duration = duration;
-		this.rating = rating;
-		this.director = director;
-		this.poster = poster;
+	public MovieShowDto(MovieShow movieShow) {
+		this.id = movieShow.getId();
+		this.type = movieShow.getType();
+		this.name = movieShow.getName();
+		this.genre = movieShow.getGenre();
+		this.description = movieShow.getDescription();
+		this.actors = movieShow.getActors();
+		this.duration = movieShow.getDuration();
+		this.rating = movieShow.getRating();
+		this.director = movieShow.getDirector();
+		this.poster = movieShow.getPoster();
 	}
 	
 	public Long getId() {

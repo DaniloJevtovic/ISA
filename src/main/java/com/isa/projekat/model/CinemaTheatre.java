@@ -38,10 +38,13 @@ public class CinemaTheatre implements Serializable {
 	@OneToOne(targetEntity = Repertoire.class)
 	private Repertoire repertoire;
 	
+	@OneToMany
+	private List<MovieShow> movieShows;
+	
 	public CinemaTheatre() {}
-
+	
 	public CinemaTheatre(Long id, String name, String adress, String description, CinemaTheatreType type,
-			List<Hall> halls, Repertoire repertoire) {
+			List<Hall> halls, Repertoire repertoire, List<MovieShow> movieShows) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -50,6 +53,7 @@ public class CinemaTheatre implements Serializable {
 		this.type = type;
 		this.halls = halls;
 		this.repertoire = repertoire;
+		this.movieShows = movieShows;
 	}
 
 	public Long getId() {
@@ -106,6 +110,14 @@ public class CinemaTheatre implements Serializable {
 
 	public void setRepertoire(Repertoire repertoire) {
 		this.repertoire = repertoire;
+	}
+
+	public List<MovieShow> getMovieShows() {
+		return movieShows;
+	}
+
+	public void setMovieShows(List<MovieShow> movieShows) {
+		this.movieShows = movieShows;
 	}
 	
 }
