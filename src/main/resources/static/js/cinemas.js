@@ -1,4 +1,5 @@
 var cinemas="../api/cinemastheatres/getCinemas"
+var islogged_url = "../api/users/isLoggedIn"
 	
 	function getCinemas(){
 	$.ajax({
@@ -30,7 +31,8 @@ var cinemas="../api/cinemastheatres/getCinemas"
 				$("#movies").empty();
 				for(i=0; i<data.length; i++){
 					$("#movies").append(`<p id=`+data[i].id+`> Naziv: `+data[i].name+` <br> Zanr: `+data[i].genre+` 
-					<br> Trajanje: `+data[i].duration+`  <br> Rejting: `+data[i].rating+` <hr> </p>`);
+					<br> Trajanje: `+data[i].duration+`  <br> Rejting: `+data[i].rating+` <br>
+					<button type="button" onclick="isLoggedIn()" class="btn btn-info btn-sm">Rezervisi</button> <hr> </p>`);
 				}
 			},
 			error: function(){
@@ -38,6 +40,27 @@ var cinemas="../api/cinemastheatres/getCinemas"
 			}
 		});
 	
+	}
+	
+	function isLoggedIn(){
+		$.ajax({
+			url: islogged_url,
+			method: "GET",
+			success: function(data){
+				var user = data;
+				if(user.email != null){
+					window.location.href = "reservation.html";
+				}
+				else{
+					window.location.href = "login.html";
+				}
+			},
+			error: function(){
+				alert("Error!!");
+			}
+		});
+
+		
 	}
 	
 	
