@@ -29,6 +29,8 @@ public class HallSeat implements Serializable {
 	
 	@ManyToOne
 	private Projection projection;
+	
+	public HallSeat() {}
 
 	public HallSeat(Long id, int seatNumber, int seatRow, Hall hall, Projection projection) {
 		super();

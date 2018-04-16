@@ -100,6 +100,4 @@ public class ProjectionTime implements Serializable {
 		this.hallSeats = hallSeats;
 	}
 	
-	
-	
 }

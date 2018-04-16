@@ -1,6 +1,7 @@
 package com.isa.projekat.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,14 @@ public class Projection implements Serializable {
 	public Projection() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Projection(Long id, Date date, MovieShow movieShow, ArrayList<ProjectionTime> projectionTimes) {
+		this.id = id;
+		this.date = date;
+		this.movieShow = movieShow;
+		this.projectionTimes = projectionTimes;
+	}
+	
 
 	public Long getId() {
 		return id;
