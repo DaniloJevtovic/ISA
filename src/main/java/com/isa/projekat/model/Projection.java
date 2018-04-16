@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -23,20 +22,48 @@ public class Projection implements Serializable {
 	private Long id;
 	
 	@Column(name="prj_date", nullable = false)
-    private Date date;
+	private Date date;
 	
 	@ManyToOne
-	private Hall hall;
-	
-	@Column(name="prj_price",nullable = false)
-	private double price;
-	
-	@ManyToOne
-	@JoinColumn(nullable = false)
 	private MovieShow movieShow;
 	
 	@OneToMany
-	private List<HallSeat> seats;
+	private List<ProjectionTime> projectionTimes;
 	
+	public Projection() {
+		// TODO Auto-generated constructor stub
+	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public MovieShow getMovieShow() {
+		return movieShow;
+	}
+
+	public void setMovieShow(MovieShow movieShow) {
+		this.movieShow = movieShow;
+	}
+
+	public List<ProjectionTime> getProjectionTimes() {
+		return projectionTimes;
+	}
+
+	public void setProjectionTimes(List<ProjectionTime> projectionTimes) {
+		this.projectionTimes = projectionTimes;
+	}
+	
 }

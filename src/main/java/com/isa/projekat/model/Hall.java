@@ -32,6 +32,8 @@ public class Hall implements Serializable {
 	@OneToMany(targetEntity = HallSeat.class)
 	private List<HallSeat> hallSeats;
 
+	public Hall() {}
+	
 	public Hall(Long id, int hallNumber, int hallRows, CinemaTheatre cinemaTheatre, List<HallSeat> hallSeats) {
 		super();
 		this.id = id;
