@@ -8,11 +8,11 @@ public class ProjectionDto {
 	private Date date;
 	private MovieShowDto movieShowDto;
 	
-	public ProjectionDto(Long id, Date date, MovieShowDto movieShowDto) {
+	public ProjectionDto(Projection projection) {
 		super();
-		this.id = id;
-		this.date = date;
-		this.movieShowDto = movieShowDto;
+		this.id = projection.getId();
+		this.date = projection.getDate();
+		this.movieShowDto = new MovieShowDto(projection.getMovieShow());
 	}
 
 	public Long getId() {

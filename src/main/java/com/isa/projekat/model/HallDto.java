@@ -7,12 +7,11 @@ public class HallDto {
 	private int hallRows;
 	private CinemaTheatreDto cinemaTheatreDto;
 	
-	public HallDto(Long id, int hallNumber, int hallRows, CinemaTheatreDto cinemaTheatreDto) {
-		super();
-		this.id = id;
-		this.hallNumber = hallNumber;
-		this.hallRows = hallRows;
-		this.cinemaTheatreDto = cinemaTheatreDto;
+	public HallDto(Hall hall) {
+		this.id = hall.getId();
+		this.hallNumber = hall.getHallNumber();
+		this.hallRows = hall.getHallRows();
+		this.cinemaTheatreDto = new CinemaTheatreDto(hall.getCinemaTheatre());
 	}
 
 	public Long getId() {

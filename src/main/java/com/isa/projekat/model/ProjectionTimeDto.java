@@ -7,16 +7,14 @@ public class ProjectionTimeDto {
 	private Long id;
 	private Date date;
 	private double price;
-	private ProjectionDto projectionDto;
 	private HallDto hallDto;
 	
-	public ProjectionTimeDto(Long id, Date date, double price, ProjectionDto projectionDto, HallDto hallDto) {
+	public ProjectionTimeDto(ProjectionTime projectionTime) {
 		super();
-		this.id = id;
-		this.date = date;
-		this.price = price;
-		this.projectionDto = projectionDto;
-		this.hallDto = hallDto;
+		this.id = projectionTime.getId();
+		this.date = (Date) projectionTime.getDate();
+		this.price = projectionTime.getPrice();
+		this.hallDto = new HallDto(projectionTime.getHall());
 	}
 
 	public Long getId() {
@@ -41,14 +39,6 @@ public class ProjectionTimeDto {
 
 	public void setPrice(double price) {
 		this.price = price;
-	}
-
-	public ProjectionDto getProjectionDto() {
-		return projectionDto;
-	}
-
-	public void setProjectionDto(ProjectionDto projectionDto) {
-		this.projectionDto = projectionDto;
 	}
 
 	public HallDto getHallDto() {
