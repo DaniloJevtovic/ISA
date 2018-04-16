@@ -1,6 +1,7 @@
 package com.isa.projekat.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -37,6 +38,11 @@ public class User implements Serializable {
 	@Column(name="user_verified", nullable = false)
 	private boolean verified;
 
+	@OneToMany
+	private List<Reservation> reservations;
+	
+	private User() {}
+	
 	public Long getId() {
 		return id;
 	}
@@ -107,6 +113,14 @@ public class User implements Serializable {
 
 	public void setVerified(boolean verified) {
 		this.verified = verified;
+	}
+
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
+
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
 	}
 
 }
