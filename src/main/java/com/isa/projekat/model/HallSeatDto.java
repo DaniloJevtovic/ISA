@@ -11,8 +11,8 @@ public class HallSeatDto {
 	public HallSeatDto(HallSeat hallSeat) {
 		// TODO Auto-generated constructor stub
 		this.id = hallSeat.getId();
-		this.seatNumber = hallSeat.getSeatNumber();
-		this.seatRow = hallSeat.getSeatRow();
+		this.seatNumber = hallSeat.getNumber();
+		this.seatRow = hallSeat.getRow();
 		this.hallDto = new HallDto(hallSeat.getHall());
 		this.projectionDto = new ProjectionDto(hallSeat.getProjection());
 	}

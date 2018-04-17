@@ -18,12 +18,12 @@ public class HallSeat implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@Column(name="seat_number", nullable = false)
-	private int seatNumber;
-
 	@Column(name="seat_row", nullable = false)
-	private int seatRow;
+	private int	row;
 	
+	@Column(name="seat_number", nullable = false)
+	private int number;
+
 	@ManyToOne
 	private Hall hall;
 	
@@ -32,11 +32,11 @@ public class HallSeat implements Serializable {
 	
 	public HallSeat() {}
 
-	public HallSeat(Long id, int seatNumber, int seatRow, Hall hall, Projection projection) {
+	public HallSeat(Long id, int number, int row, Hall hall, Projection projection) {
 		super();
 		this.id = id;
-		this.seatNumber = seatNumber;
-		this.seatRow = seatRow;
+		this.number = number;
+		this.row = row;
 		this.hall = hall;
 		this.projection = projection;
 	}
@@ -48,21 +48,21 @@ public class HallSeat implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public int getSeatNumber() {
-		return seatNumber;
+	
+	public int getRow() {
+		return row;
 	}
 
-	public void setSeatNumber(int seatNumber) {
-		this.seatNumber = seatNumber;
+	public void setRow(int row) {
+		this.row = row;
 	}
 
-	public int getSeatRow() {
-		return seatRow;
+	public int getNumber() {
+		return number;
 	}
 
-	public void setSeatRow(int seatRow) {
-		this.seatRow = seatRow;
+	public void setSeatNumber(int number) {
+		this.number = number;
 	}
 
 	public Hall getHall() {
