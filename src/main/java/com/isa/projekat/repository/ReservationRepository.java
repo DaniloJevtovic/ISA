@@ -11,5 +11,5 @@ import com.isa.projekat.model.User;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
-	List<Repository> findByUser(User user);
+	List<Reservation> findByUser(User user);
 }
