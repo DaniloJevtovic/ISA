@@ -17,12 +17,57 @@ insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_type) values 
 insert into repertoire (cinema_theatre_id) values (1)
 
 --filmovi (repertoar 1)
-insert into movie_show (ms_type, ms_name, ms_genre, ms_description, ms_actors, ms_duration, ms_rating, ms_director, ms_poster, ms_repertoire, cinema_theatre_id ) values ('0', 'Dumb and dumber', '0', 'opis...', 'Jim Carrey, Jeff Daniels', '1.47', '7.3', 'Bobby Farrelly, Peter Farrelly', 'poster', 1, 4 )
+insert into movie_show (ms_type, ms_name, ms_genre, ms_description, ms_actors, ms_duration, ms_rating, ms_director, ms_poster, ms_repertoire, cinema_theatre_id ) values ('0', 'Dumb and dumber', '0', 'opis...', 'Jim Carrey, Jeff Daniels', '1.47', '7.3', 'Bobby Farrelly, Peter Farrelly', 'images/dumb.jpg', 1, 4 )
 insert into movie_show (ms_type, ms_name, ms_genre, ms_description, ms_actors, ms_duration, ms_rating, ms_director, ms_poster, ms_repertoire, cinema_theatre_id ) values ('0', 'Nueve reinas', '3', 'opis...', ' Ricardo Darín, Gastón Pauls', '1.54', '7.9', 'Fabian Bielinsky', 'poster', 1, 4 )
 insert into movie_show (ms_type, ms_name, ms_genre, ms_description, ms_actors, ms_duration, ms_rating, ms_director, ms_poster, ms_repertoire, cinema_theatre_id ) values ('0', 'Contratiempo', '4', 'opis...', '  Mario Casas, Ana Wagener', '1.46', '8.1', 'Oriol Paulo', 'poster', 1, 4 )
 
---repertoar
+--repertoar za bioskope
 insert into cinema_theatre_movie_shows(cinema_theatre_id, movie_shows_id) values (4, 1)
 insert into cinema_theatre_movie_shows(cinema_theatre_id, movie_shows_id) values (4, 2)
 insert into cinema_theatre_movie_shows(cinema_theatre_id, movie_shows_id) values (4, 3)
 
+--sale
+insert into hall (hall_number, hall_rows, hall_seatrows, cinema_theatre_id) values ('1', 20, 10, 4)
+insert into hall (hall_number, hall_rows, hall_seatrows, cinema_theatre_id) values ('2', 50, 20, 4)
+insert into hall (hall_number, hall_rows, hall_seatrows, cinema_theatre_id) values ('3', 20, 10, 4)
+
+--sala-kino
+insert into cinema_theatre_halls (cinema_theatre_id, halls_id) values (1, 1)
+insert into cinema_theatre_halls (cinema_theatre_id, halls_id) values (1, 2)
+insert into cinema_theatre_halls (cinema_theatre_id, halls_id) values (1, 3)
+
+--projekcije za prvi film
+insert into projection (prj_date, movie_show_id) values ('2018-04-27', '1')
+insert into projection (prj_date, movie_show_id) values ('2017-04-12', '1')
+insert into projection (prj_date, movie_show_id) values ('2011-04-12', '1')
+insert into projection (prj_date, movie_show_id) values ('2001-04-12', '1')
+--projekcije za drugi film
+insert into projection (prj_date, movie_show_id) values ('2011-04-12', '2')
+insert into projection (prj_date, movie_show_id) values ('2012-04-12', '2')
+--projekcije za treci film
+insert into projection (prj_date, movie_show_id) values ('2011-04-12', '3')
+
+--projekcija-film
+insert into movie_show_projections (movie_show_id, projections_id) values (1, 1)
+
+--sjediste
+insert into hall_seat (seat_number, seat_row, hall_id) values (4, 5, 1)		--br sjedista 4, red 5.
+
+--sjediste sala
+insert into hall_hall_seats (hall_id, hall_seats_id) values (1, 1)
+
+--vrijeme projekcije
+insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('16:30', '200', 1, 1)
+insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('18:00', '200', 1, 1)
+insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('18:45', '200', 1, 1)
+insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('20:00', '350', 1, 1)
+insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('21:15', '400', 1, 1)
+
+--projekcija, vrijme projekcije
+insert into projection_projection_times (projection_id, projection_times_id) values (1, 1)
+insert into projection_projection_times (projection_id, projection_times_id) values (1, 2)
+insert into projection_projection_times (projection_id, projection_times_id) values (1, 3)
+
+insert into projection_time_hall_seats (projection_time_id, hall_seats_id) values (1, 1)
+
+insert into reservation (user_id, projection_time_id, price, visited) values (1, 1, 200, 0)
