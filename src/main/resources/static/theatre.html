@@ -12,8 +12,22 @@
     <script src="js/theatre.js"></script>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/toastr.css" rel="stylesheet">
+
+<style>
+#myInput {
+	background-image: url('/images/search.png');
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	width: 100%;
+	font-size: 16px;
+	padding: 12px 20px 12px 40px;
+	border: 1px solid #ddd;
+	margin-bottom: 12px;
+}
+</style>
+
 </head>
-<body onload="generateNavbar(); getTheaters()">
+<body onload="generateNavbar(); getTheaters(); searchFunction()">
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="index.html">Pocetna</a>
@@ -34,6 +48,8 @@
 	<h1 align="center">Pozorista</h1>
 	
     <div class="container">
+    <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Pretraga po nazivu.." title="Type in a name">
+
 		<div style="margin-top: 20px;">
 			<table id="dataTable" class="table table-hover table-bordered">
 				<thead class="thead-dark">
@@ -49,9 +65,31 @@
 				</tbody>
 			</table>
 		</div>
+		
+		<script>
+		function searchFunction() {
+			var input, filter, table, tr, td, i;
+			input = document.getElementById("myInput");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("dataTable");
+			tr = table.getElementsByTagName("tr");
+			for (i = 0; i < tr.length; i++) {
+				td = tr[i].getElementsByTagName("td")[0];
+				if (td) {
+					if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+		</script>
+		
 	</div>
-	
-	 <!-- Modal -->
+
+
+	<!-- Modal -->
   	<div class="modal fade" id="theatreModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
