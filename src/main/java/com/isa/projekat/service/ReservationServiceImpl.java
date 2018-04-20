@@ -11,14 +11,14 @@ import com.isa.projekat.repository.ReservationRepository;
 import com.isa.projekat.repository.UserRepository;
 
 @Service
-public class ReservationServiceImpl implements ReservationService{
+public class ReservationServiceImpl implements ReservationService {
 
 	@Autowired
 	private ReservationRepository reservationRepository;
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Override
 	public Reservation save(Reservation reservation) {
 		// TODO Auto-generated method stub
@@ -32,10 +32,23 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	@Override
+	public List<Reservation> getAllReservations() {
+		// TODO Auto-generated method stub
+		return reservationRepository.findAll();
+	}
+
+	@Override
 	public List<Reservation> getUserReservation(Long userId) {
 		// TODO Auto-generated method stub
 		User user = userRepository.findOne(userId);
 		return reservationRepository.findByUser(user);
+	}
+
+	@Override
+	public List<Reservation> getUserVisitHistory(Long userId) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findById(userId);
+		return reservationRepository.findByUserAndVisited(user, true);
 	}
 
 }
