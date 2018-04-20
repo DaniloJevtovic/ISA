@@ -16,22 +16,21 @@ import com.isa.projekat.repository.UserRepository;
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	@Autowired
 	private Environment enviroment;
-	
 
 	@Override
 	public User save(User user) {
 		// TODO Auto-generated method stub
 		user.setVerified(false);
-		user.setUserType(UserType.REGISTROVAN);	//samo privremeno!!! ispravi
+		user.setUserType(UserType.REGISTROVAN); // samo privremeno!!! ispravi
 		return userRepository.save(user);
 	}
 
@@ -56,13 +55,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> searchUsers(String name, String surname) {
 		// TODO Auto-generated method stub
-		if(!name.equals("nema") && !surname.equals("nema")) {
+		if (!name.equals("nema") && !surname.equals("nema")) {
 			return userRepository.findByNameAndSurname(name, surname);
-		}else if(name.equals("nema") && !surname.equals("nema")) {
+		} else if (name.equals("nema") && !surname.equals("nema")) {
 			return userRepository.findBySurname(surname);
-		}else if(!name.equals("nema") && surname.equals("nema")) {
+		} else if (!name.equals("nema") && surname.equals("nema")) {
 			return userRepository.findByName(name);
-		}else {
+		} else {
 			return userRepository.findAll();
 		}
 	}
@@ -71,8 +70,8 @@ public class UserServiceImpl implements UserService {
 	public User login(User user) {
 		// TODO Auto-generated method stub
 		User user2 = userRepository.findByEmail(user.getEmail());
-		if(user2 != null) {
-			if(user.getPassword().equals(user2.getPassword())) {
+		if (user2 != null) {
+			if (user.getPassword().equals(user2.getPassword())) {
 				return user2;
 			}
 		}
@@ -86,15 +85,16 @@ public class UserServiceImpl implements UserService {
 		mailMessage.setTo(user.getEmail());
 		mailMessage.setFrom(enviroment.getProperty("spring.mail.username"));
 		mailMessage.setSubject("Verifikacija naloga");
-		mailMessage.setText("Pozdrav " + user.getName() + "," + "\nLink za verifikaciju je sledeci:\n" + "\nhttp://localhost:1111/api/users/verify/" + user.getId() + "");
+		mailMessage.setText("Pozdrav " + user.getName() + "," + "\nLink za verifikaciju je sledeci:\n"
+				+ "\nhttp://localhost:1111/api/users/verify/" + user.getId() + "");
 		mailSender.send(mailMessage);
 	}
 
 	@Override
 	public boolean verifyEmail(Long id) {
 		// TODO Auto-generated method stub
-		User user = userRepository.findById(id);		
-		user.setVerified(true);		//
+		User user = userRepository.findById(id);
+		user.setVerified(true); //
 		userRepository.save(user);
 		return true;
 	}
@@ -103,32 +103,32 @@ public class UserServiceImpl implements UserService {
 	public User editUser(User user, Long id) {
 		// TODO Auto-generated method stub
 		User currentUser = userRepository.findById(id);
-		
-		if(user.getEmail() != null){
+
+		if (user.getEmail() != null) {
 			currentUser.setEmail(currentUser.getEmail());
 		}
-		
-		if(user.getName() != null){
+
+		if (user.getName() != null) {
 			currentUser.setName(user.getName());
 		}
-		
-		if(user.getSurname() != null){
+
+		if (user.getSurname() != null) {
 			currentUser.setSurname(user.getSurname());
 		}
-		
-		if(user.getCity() != null){
+
+		if (user.getCity() != null) {
 			currentUser.setCity(user.getCity());
 		}
-		
-		if(user.getPhone() != null){
+
+		if (user.getPhone() != null) {
 			currentUser.setPhone(user.getPhone());
 		}
-		
-		if(user.getPassword() != null){
+
+		if (user.getPassword() != null) {
 			currentUser.setPassword(user.getPassword());
 		}
-		
+
 		return userRepository.save(currentUser);
 	}
-	
+
 }

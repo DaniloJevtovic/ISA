@@ -15,7 +15,7 @@ public class MovieShowServiceImpl implements MovieShowService {
 
 	@Autowired
 	MovieShowRepository msRepository;
-	
+
 	@Override
 	public List<MovieShow> findAll() {
 		// TODO Auto-generated method stub

@@ -18,7 +18,7 @@ public class CinemaTheatreServiceImpl implements CinemaTheatreService {
 
 	@Autowired
 	private CinemaTheatreRepository ctRepository;
-	
+
 	@Override
 	public CinemaTheatre save(CinemaTheatre cinemaTheatre) {
 		// TODO Auto-generated method stub

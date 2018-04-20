@@ -11,14 +11,14 @@ import com.isa.projekat.repository.MovieShowRepository;
 import com.isa.projekat.repository.ProjectionRepository;
 
 @Service
-public class ProjectionServiceImpl implements ProjectionService{
+public class ProjectionServiceImpl implements ProjectionService {
 
 	@Autowired
 	ProjectionRepository projectinRepository;
-	
+
 	@Autowired
 	MovieShowRepository movieShowRepository;
-	
+
 	@Override
 	public Projection save(Projection projection) {
 		// TODO Auto-generated method stub

@@ -10,8 +10,8 @@ import com.isa.projekat.repository.HallRepository;
 public class HallServiceImpl implements HallService {
 
 	@Autowired
-	HallRepository hallRepository;
-	
+	private HallRepository hallRepository;
+
 	@Override
 	public Hall save(Hall hall) {
 		// TODO Auto-generated method stub

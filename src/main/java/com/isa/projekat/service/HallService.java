@@ -4,6 +4,6 @@ import com.isa.projekat.model.Hall;
 
 public interface HallService {
 
-	Hall save (Hall hall);
-	
+	Hall save(Hall hall);
+
 }

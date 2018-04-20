@@ -15,10 +15,10 @@ public class HallSeatServiceImpl implements HallSeatService {
 
 	@Autowired
 	private HallRepository hallRepository;
-	
+
 	@Autowired
 	private HallSeatRepository hallSeatRepository;
-	
+
 	@Override
 	public HallSeat save(HallSeat hallSeat) {
 		// TODO Auto-generated method stub
@@ -30,6 +30,13 @@ public class HallSeatServiceImpl implements HallSeatService {
 		// TODO Auto-generated method stub
 		Hall hall = hallRepository.findOne(hLong);
 		return hallSeatRepository.findSeatByHall(hall);
+	}
+
+	@Override
+	public HallSeat findByHallAndRowAndNumber(Long hallId, int row, int number) {
+		// TODO Auto-generated method stub
+		Hall hall = hallRepository.findOne(hallId);
+		return hallSeatRepository.findSeatByHallAndRowAndNumber(hall, row, number);
 	}
 
 }
