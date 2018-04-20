@@ -7,13 +7,15 @@ public class CinemaTheatreDto {
 	private String adress;
 	private String description;
 	private CinemaTheatreType type;
-	
+	private String grade;
+
 	public CinemaTheatreDto(CinemaTheatre cinemaTheatre) {
 		this.id = cinemaTheatre.getId();
 		this.name = cinemaTheatre.getName();
 		this.adress = cinemaTheatre.getAdress();
 		this.description = cinemaTheatre.getDescription();
 		this.type = cinemaTheatre.getType();
+		this.grade = cinemaTheatre.getGrade();
 	}
 
 	public Long getId() {
@@ -54,6 +56,14 @@ public class CinemaTheatreDto {
 
 	public void setType(CinemaTheatreType type) {
 		this.type = type;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
 	}
 
 }

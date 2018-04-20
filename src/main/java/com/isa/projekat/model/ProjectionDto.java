@@ -7,9 +7,8 @@ public class ProjectionDto {
 	private Long id;
 	private Date date;
 	private MovieShowDto movieShowDto;
-	
+
 	public ProjectionDto(Projection projection) {
-		super();
 		this.id = projection.getId();
 		this.date = projection.getDate();
 		this.movieShowDto = new MovieShowDto(projection.getMovieShow());

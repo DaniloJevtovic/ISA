@@ -1,20 +1,22 @@
 package com.isa.projekat.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class ProjectionTimeDto {
 
 	private Long id;
-	private Date date;
+	private Date time;
 	private double price;
 	private HallDto hallDto;
-	
-	public ProjectionTimeDto(ProjectionTime projectionTime) {
+	private ProjectionDto projectionDto;
+
+	public ProjectionTimeDto(ProjectionTime pt) {
 		super();
-		this.id = projectionTime.getId();
-		this.date = (Date) projectionTime.getDate();
-		this.price = projectionTime.getPrice();
-		this.hallDto = new HallDto(projectionTime.getHall());
+		this.id = pt.getId();
+		this.time = pt.getTime();
+		this.price = pt.getPrice();
+		this.hallDto = new HallDto(pt.getHall());
+		this.projectionDto = new ProjectionDto(pt.getProjection());
 	}
 
 	public Long getId() {
@@ -25,12 +27,12 @@ public class ProjectionTimeDto {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getTime() {
+		return time;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
 	public double getPrice() {
@@ -48,5 +50,13 @@ public class ProjectionTimeDto {
 	public void setHallDto(HallDto hallDto) {
 		this.hallDto = hallDto;
 	}
-	
+
+	public ProjectionDto getProjectionDto() {
+		return projectionDto;
+	}
+
+	public void setProjectionDto(ProjectionDto projectionDto) {
+		this.projectionDto = projectionDto;
+	}
+
 }

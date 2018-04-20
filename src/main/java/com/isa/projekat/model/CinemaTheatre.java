@@ -19,31 +19,35 @@ public class CinemaTheatre implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="ct_name", nullable = false)
+
+	@Column(name = "ct_name", nullable = false)
 	private String name;
-	
-	@Column(name="ct_adress", nullable = false)
+
+	@Column(name = "ct_adress", nullable = false)
 	private String adress;
-	
-	@Column(name="ct_description", nullable = false)
+
+	@Column(name = "ct_description", nullable = false)
 	private String description;
-	
-	@Column(name="ct_type", nullable = false)
+
+	@Column(name = "ct_type", nullable = false)
 	private CinemaTheatreType type;
-	
+
+	@Column(name = "ct_grade", nullable = true)
+	private String grade;
+
 	@OneToMany(targetEntity = Hall.class)
 	private List<Hall> halls;
-	
+
 	@OneToOne(targetEntity = Repertoire.class)
 	private Repertoire repertoire;
-	
+
 	@OneToMany
 	private List<MovieShow> movieShows;
-	
-	public CinemaTheatre() {}
-	
-	public CinemaTheatre(Long id, String name, String adress, String description, CinemaTheatreType type,
+
+	public CinemaTheatre() {
+	}
+
+	public CinemaTheatre(Long id, String name, String adress, String description, CinemaTheatreType type, String grade,
 			List<Hall> halls, Repertoire repertoire, List<MovieShow> movieShows) {
 		super();
 		this.id = id;
@@ -51,6 +55,7 @@ public class CinemaTheatre implements Serializable {
 		this.adress = adress;
 		this.description = description;
 		this.type = type;
+		this.grade = grade;
 		this.halls = halls;
 		this.repertoire = repertoire;
 		this.movieShows = movieShows;
@@ -96,6 +101,14 @@ public class CinemaTheatre implements Serializable {
 		this.type = type;
 	}
 
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
 	public List<Hall> getHalls() {
 		return halls;
 	}
@@ -119,5 +132,5 @@ public class CinemaTheatre implements Serializable {
 	public void setMovieShows(List<MovieShow> movieShows) {
 		this.movieShows = movieShows;
 	}
-	
+
 }

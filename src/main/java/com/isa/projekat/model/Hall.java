@@ -15,30 +15,34 @@ import javax.persistence.OneToMany;
 public class Hall implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="hall_number", nullable = false)
-	private int hallNumber;
-	
-	@Column(name="hall_rows", nullable = false)
-	private int hallRows;
-	
+
+	@Column(name = "hall_number", nullable = false)
+	private int number;
+
+	@Column(name = "hall_rows", nullable = false)
+	private int rows;
+
+	@Column(name = "hall_seatrows", nullable = false)
+	private int seatsPerRow;
+
 	@ManyToOne(targetEntity = CinemaTheatre.class)
 	private CinemaTheatre cinemaTheatre;
-	
+
 	@OneToMany(targetEntity = HallSeat.class)
 	private List<HallSeat> hallSeats;
 
 	public Hall() {}
-	
-	public Hall(Long id, int hallNumber, int hallRows, CinemaTheatre cinemaTheatre, List<HallSeat> hallSeats) {
+
+	public Hall(Long id, int number, int rows, int seatsPerRow, CinemaTheatre cinemaTheatre, List<HallSeat> hallSeats) {
 		super();
 		this.id = id;
-		this.hallNumber = hallNumber;
-		this.hallRows = hallRows;
+		this.number = number;
+		this.rows = rows;
+		this.seatsPerRow = seatsPerRow;
 		this.cinemaTheatre = cinemaTheatre;
 		this.hallSeats = hallSeats;
 	}
@@ -51,20 +55,28 @@ public class Hall implements Serializable {
 		this.id = id;
 	}
 
-	public int getHallNumber() {
-		return hallNumber;
+	public int getNumber() {
+		return number;
 	}
 
-	public void setHallNumber(int hallNumber) {
-		this.hallNumber = hallNumber;
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
-	public int getHallRows() {
-		return hallRows;
+	public int getRows() {
+		return rows;
 	}
 
-	public void setHallRows(int hallRows) {
-		this.hallRows = hallRows;
+	public void setRows(int rows) {
+		this.rows = rows;
+	}
+
+	public int getSeatsPerRow() {
+		return seatsPerRow;
+	}
+
+	public void setSeatsPerRow(int seatsPerRow) {
+		this.seatsPerRow = seatsPerRow;
 	}
 
 	public CinemaTheatre getCinemaTheatre() {

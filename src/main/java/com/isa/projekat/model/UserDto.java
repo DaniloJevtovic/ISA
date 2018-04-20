@@ -1,7 +1,7 @@
 package com.isa.projekat.model;
 
 public class UserDto {
-	
+
 	private Long id;
 	private String email;
 	private String name;
@@ -14,7 +14,7 @@ public class UserDto {
 
 	public UserDto(User user) {
 		this.id = user.getId();
-		this.email=user.getEmail();
+		this.email = user.getEmail();
 		this.name = user.getName();
 		this.surname = user.getSurname();
 		this.password = user.getPassword();

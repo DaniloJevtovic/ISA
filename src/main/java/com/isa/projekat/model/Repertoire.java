@@ -17,20 +17,21 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Repertoire implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@OneToOne(fetch = FetchType.EAGER)
 	@JsonBackReference
 	private CinemaTheatre cinemaTheatre;
-	
+
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "repertoire")
 	private List<MovieShow> movieShows;
 
-	public Repertoire() {}
-	
+	public Repertoire() {
+	}
+
 	public Repertoire(Long id, CinemaTheatre cinemaTheatre, List<MovieShow> movieShows) {
 		super();
 		this.id = id;

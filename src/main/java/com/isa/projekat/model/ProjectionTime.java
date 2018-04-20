@@ -22,32 +22,33 @@ public class ProjectionTime implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(nullable = false)
+
+	@Column(name = "pt_time", nullable = false)
 	@Temporal(TemporalType.TIME)
-	private Date date;
-	
+	private Date time;
+
+	@Column(name = "pt_price", nullable = false)
+	private double price;
+
 	@ManyToOne
 	private Projection projection;
-	
-	@Column(nullable = false)
-	private double price;
-	
+
 	@ManyToOne
 	private Hall hall;
-	
+
 	@ManyToMany
 	private List<HallSeat> hallSeats;
-	
-	public ProjectionTime() {}
 
-	public ProjectionTime(Long id, Date date, Projection projection, double price, Hall hall,
+	public ProjectionTime() {
+	}
+
+	public ProjectionTime(Long id, Date time, double price, Projection projection, Hall hall,
 			List<HallSeat> hallSeats) {
 		super();
 		this.id = id;
-		this.date = date;
-		this.projection = projection;
+		this.time = time;
 		this.price = price;
+		this.projection = projection;
 		this.hall = hall;
 		this.hallSeats = hallSeats;
 	}
@@ -60,20 +61,12 @@ public class ProjectionTime implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getTime() {
+		return time;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public Projection getProjection() {
-		return projection;
-	}
-
-	public void setProjection(Projection projection) {
-		this.projection = projection;
+	public void setTime(Date time) {
+		this.time = time;
 	}
 
 	public double getPrice() {
@@ -82,6 +75,14 @@ public class ProjectionTime implements Serializable {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+	public Projection getProjection() {
+		return projection;
+	}
+
+	public void setProjection(Projection projection) {
+		this.projection = projection;
 	}
 
 	public Hall getHall() {
@@ -99,5 +100,5 @@ public class ProjectionTime implements Serializable {
 	public void setHallSeats(List<HallSeat> hallSeats) {
 		this.hallSeats = hallSeats;
 	}
-	
+
 }

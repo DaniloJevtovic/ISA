@@ -1,9 +1,9 @@
 package com.isa.projekat.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,32 +14,36 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Reservation implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	@ManyToOne
 	private User user;
-	
+
 	@ManyToOne
 	private ProjectionTime projectionTime;
-	
+
 	@ManyToMany
 	private List<HallSeat> hallSeats;
-	
-	public Reservation() {}
 
-	public Reservation(Long id, User user, ProjectionTime projectionTime) {
-		super();
-		this.id = id;
+	@Column
+	private double price;
+
+	@Column
+	private boolean visited;
+
+	public Reservation() {
+	}
+
+	public Reservation(User user, ProjectionTime projectionTime, List<HallSeat> hallSeats) {
 		this.user = user;
 		this.projectionTime = projectionTime;
-		this.hallSeats = new ArrayList<HallSeat>();
+		this.hallSeats = hallSeats;
+		this.price = hallSeats.size() * projectionTime.getPrice();
+		this.visited = false;
 	}
 
 	public Long getId() {
@@ -73,6 +77,21 @@ public class Reservation implements Serializable {
 	public void setHallSeats(List<HallSeat> hallSeats) {
 		this.hallSeats = hallSeats;
 	}
-	
-	
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+	public boolean isVisited() {
+		return visited;
+	}
+
+	public void setVisited(boolean visited) {
+		this.visited = visited;
+	}
+
 }

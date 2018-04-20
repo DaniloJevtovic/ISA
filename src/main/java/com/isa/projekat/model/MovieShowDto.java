@@ -1,7 +1,7 @@
 package com.isa.projekat.model;
 
 public class MovieShowDto {
-	
+
 	private Long id;
 	private MovieShowType type;
 	private String name;
@@ -12,7 +12,8 @@ public class MovieShowDto {
 	private String rating;
 	private String director;
 	private String poster;
-	
+	private CinemaTheatreDto cinemaTheatre;
+
 	public MovieShowDto(MovieShow movieShow) {
 		this.id = movieShow.getId();
 		this.type = movieShow.getType();
@@ -24,8 +25,9 @@ public class MovieShowDto {
 		this.rating = movieShow.getRating();
 		this.director = movieShow.getDirector();
 		this.poster = movieShow.getPoster();
+		this.cinemaTheatre = new CinemaTheatreDto(movieShow.getCinemaTheatre());
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -104,6 +106,14 @@ public class MovieShowDto {
 
 	public void setPoster(String poster) {
 		this.poster = poster;
+	}
+
+	public CinemaTheatreDto getCinemaTheatre() {
+		return cinemaTheatre;
+	}
+
+	public void setCinemaTheatre(CinemaTheatreDto cinemaTheatre) {
+		this.cinemaTheatre = cinemaTheatre;
 	}
 
 }

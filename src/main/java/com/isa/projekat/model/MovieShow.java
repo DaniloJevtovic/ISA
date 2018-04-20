@@ -22,47 +22,48 @@ public class MovieShow implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="ms_type", nullable = false)		//film/predstava
+
+	@Column(name = "ms_type", nullable = false) // film/predstava
 	private MovieShowType type;
-	
-	@Column(name="ms_name", nullable = false)
+
+	@Column(name = "ms_name", nullable = false)
 	private String name;
-	
-	@Column(name="ms_genre", nullable = false)
+
+	@Column(name = "ms_genre", nullable = false)
 	private MovieShowGenre genre;
-	
-	@Column(name="ms_description", nullable = false)
+
+	@Column(name = "ms_description", nullable = false)
 	private String description;
-		
-	@Column(name="ms_actors", nullable = false)
+
+	@Column(name = "ms_actors", nullable = false)
 	private String actors;
-	
-	@Column(name="ms_duration", nullable = false)
+
+	@Column(name = "ms_duration", nullable = false)
 	private String duration;
-	
-	@Column(name="ms_rating", nullable = false)
+
+	@Column(name = "ms_rating", nullable = false)
 	private String rating;
-	
-	@Column(name="ms_director", nullable = false)
+
+	@Column(name = "ms_director", nullable = false)
 	private String director;
-	
-	@Column(name="ms_poster", nullable = false)
+
+	@Column(name = "ms_poster", nullable = false)
 	private String poster;
-	
+
 	@ManyToOne()
 	@JoinColumn(name = "ms_repertoire")
 	@JsonBackReference
 	private Repertoire repertoire;
-	
+
 	@OneToMany
 	private List<Projection> projections;
-	
+
 	@ManyToOne
 	private CinemaTheatre cinemaTheatre;
-	
-	public MovieShow() {}
-	
+
+	public MovieShow() {
+	}
+
 	public MovieShow(Long id, MovieShowType type, String name, MovieShowGenre genre, String description, String actors,
 			String duration, String rating, String director, String poster, Repertoire repertoire,
 			List<Projection> projections, CinemaTheatre cinemaTheatre) {
@@ -89,7 +90,7 @@ public class MovieShow implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public MovieShowType getType() {
 		return type;
 	}

@@ -9,40 +9,41 @@ import javax.persistence.*;
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@Column(name="user_email", nullable = false)
+
+	@Column(name = "user_email", nullable = false)
 	private String email;
-	
-	@Column(name="user_password", nullable = false)
+
+	@Column(name = "user_password", nullable = false)
 	private String password;
-	
-	@Column(name="user_name", nullable = true)
+
+	@Column(name = "user_name", nullable = true)
 	private String name;
-	
-	@Column(name="user_surname", nullable = true)
+
+	@Column(name = "user_surname", nullable = true)
 	private String surname;
-		
-	@Column(name="user_city", nullable = true)
+
+	@Column(name = "user_city", nullable = true)
 	private String city;
-	
-	@Column(name="user_phone", nullable = true)
+
+	@Column(name = "user_phone", nullable = true)
 	private String phone;
-	
-	@Column(name="user_type", nullable = false)
+
+	@Column(name = "user_type", nullable = false)
 	private UserType userType;
-	
-	@Column(name="user_verified", nullable = false)
+
+	@Column(name = "user_verified", nullable = false)
 	private boolean verified;
 
 	@OneToMany
 	private List<Reservation> reservations;
-	
-	private User() {}
-	
+
+	private User() {
+	}
+
 	public Long getId() {
 		return id;
 	}
