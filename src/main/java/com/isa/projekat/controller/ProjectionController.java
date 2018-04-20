@@ -21,15 +21,15 @@ public class ProjectionController {
 
 	@Autowired
 	ProjectionService projectionService;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ProjectionDto>> getProjectionsForMovieShow(@PathVariable Long msId) {
 		List<Projection> projections = projectionService.getProjectionsForMovieShow(msId);
 		List<ProjectionDto> projectionDtos = new ArrayList<ProjectionDto>();
-		for(Projection projection : projections) {
+		for (Projection projection : projections) {
 			projectionDtos.add(new ProjectionDto(projection));
 		}
 		return new ResponseEntity<List<ProjectionDto>>(projectionDtos, HttpStatus.OK);
 	}
-	
+
 }

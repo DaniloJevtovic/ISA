@@ -20,35 +20,44 @@ import com.isa.projekat.service.CinemaTheatreService;
 @RestController
 @RequestMapping("/api/cinemastheatres")
 public class CinemaTheatreController {
-	
-	@Autowired 
+
+	@Autowired
 	CinemaTheatreService cinemaTheatreService;
 
-	@RequestMapping(value="/getTheaters", method = RequestMethod.GET)
-	public ResponseEntity<List<CinemaTheatreDto>> getTheaters(){
+	@RequestMapping(value = "/getTheaters", method = RequestMethod.GET)
+	public ResponseEntity<List<CinemaTheatreDto>> getTheaters() {
 		List<CinemaTheatreDto> theatersDto = new ArrayList<CinemaTheatreDto>();
-		for(CinemaTheatre theater : cinemaTheatreService.getAllTheatres()){
+		for (CinemaTheatre theater : cinemaTheatreService.getAllTheatres()) {
 			theatersDto.add(new CinemaTheatreDto(theater));
 		}
 		return new ResponseEntity<List<CinemaTheatreDto>>(theatersDto, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/getCinemas", method = RequestMethod.GET)
-	public ResponseEntity<List<CinemaTheatreDto>> getCinemas(){
+
+	@RequestMapping(value = "/getCinemas", method = RequestMethod.GET)
+	public ResponseEntity<List<CinemaTheatreDto>> getCinemas() {
 		List<CinemaTheatreDto> cinemasDto = new ArrayList<CinemaTheatreDto>();
-		for(CinemaTheatre cinema : cinemaTheatreService.getAllCinemas()){
+		for (CinemaTheatre cinema : cinemaTheatreService.getAllCinemas()) {
 			cinemasDto.add(new CinemaTheatreDto(cinema));
 		}
 		return new ResponseEntity<List<CinemaTheatreDto>>(cinemasDto, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value="/{ctId}/getMoviesShows",method = RequestMethod.GET)
-	public ResponseEntity<List<MovieShowDto>> getMoviesShows(@PathVariable Long ctId){
+
+	@RequestMapping(value = "/{ctId}/getMoviesShows", method = RequestMethod.GET)
+	public ResponseEntity<List<MovieShowDto>> getMoviesShows(@PathVariable Long ctId) {
 		List<MovieShowDto> movieShowDtos = new ArrayList<MovieShowDto>();
-		for(MovieShow movieShow : cinemaTheatreService.getMovieShows(ctId)){
+		for (MovieShow movieShow : cinemaTheatreService.getMovieShows(ctId)) {
 			movieShowDtos.add(new MovieShowDto(movieShow));
 		}
-		return new ResponseEntity<List<MovieShowDto>>(movieShowDtos,HttpStatus.OK);
+		return new ResponseEntity<List<MovieShowDto>>(movieShowDtos, HttpStatus.OK);
 	}
-	
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<CinemaTheatreDto>> getAll() {
+		List<CinemaTheatreDto> cinemaTheatreDtos = new ArrayList<CinemaTheatreDto>();
+		for (CinemaTheatre cinemaTheatre : cinemaTheatreService.getAll()) {
+			cinemaTheatreDtos.add(new CinemaTheatreDto(cinemaTheatre));
+		}
+		return new ResponseEntity<List<CinemaTheatreDto>>(cinemaTheatreDtos, HttpStatus.OK);
+	}
+
 }

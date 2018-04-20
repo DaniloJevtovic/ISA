@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.isa.projekat.model.MovieShow;
 import com.isa.projekat.model.MovieShowDto;
 import com.isa.projekat.service.MovieShowService;
-import com.isa.projekat.service.ProjectionService;
 
 @RestController
 @RequestMapping("/api/movieshows")
@@ -22,24 +21,21 @@ public class MovieShowController {
 
 	@Autowired
 	private MovieShowService movieShowService;
-	
-	@Autowired
-	ProjectionService projectionService;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<MovieShowDto>> getAllMoviesShows(){
+	public ResponseEntity<List<MovieShowDto>> getAllMoviesShows() {
 		List<MovieShow> movieShows = movieShowService.findAll();
 		List<MovieShowDto> movieShowDtos = new ArrayList<MovieShowDto>();
-		for(MovieShow movieShow : movieShows){
+		for (MovieShow movieShow : movieShows) {
 			movieShowDtos.add(new MovieShowDto(movieShow));
 		}
-		return new ResponseEntity<List<MovieShowDto>>(movieShowDtos,HttpStatus.OK);
+		return new ResponseEntity<List<MovieShowDto>>(movieShowDtos, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<MovieShowDto> save(@RequestBody MovieShow movieShow){
+	public ResponseEntity<MovieShowDto> save(@RequestBody MovieShow movieShow) {
 		MovieShowDto movieShowDto = new MovieShowDto(movieShowService.save(movieShow));
 		return new ResponseEntity<MovieShowDto>(movieShowDto, HttpStatus.CREATED);
 	}
-	
+
 }
