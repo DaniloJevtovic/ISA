@@ -13,6 +13,8 @@ import com.isa.projekat.model.MovieShowType;
 public interface MovieShowRepository extends JpaRepository<MovieShow, Long> {
 
 	public MovieShow findById(Long id);
+
 	public List<MovieShow> findByType(MovieShowType msType);
-	public List<MovieShow> findByGenre(MovieShowGenre msGenre);	
+
+	public List<MovieShow> findByGenre(MovieShowGenre msGenre);
 }

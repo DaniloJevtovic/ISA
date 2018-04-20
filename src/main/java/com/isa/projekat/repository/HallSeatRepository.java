@@ -12,6 +12,7 @@ import com.isa.projekat.model.HallSeat;
 public interface HallSeatRepository extends JpaRepository<HallSeat, Long> {
 
 	List<HallSeat> findSeatByHall(Hall hall);
+
 	HallSeat findSeatByHallAndRowAndNumber(Hall hall, int row, int number);
-	
+
 }

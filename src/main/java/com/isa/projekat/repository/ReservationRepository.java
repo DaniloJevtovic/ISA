@@ -12,4 +12,6 @@ import com.isa.projekat.model.User;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
 	List<Reservation> findByUser(User user);
+
+	List<Reservation> findByUserAndVisited(User user, boolean visited);
 }

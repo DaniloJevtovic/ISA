@@ -10,8 +10,8 @@ import com.isa.projekat.model.CinemaTheatreType;
 
 @Repository
 public interface CinemaTheatreRepository extends JpaRepository<CinemaTheatre, Long> {
-	
-	//public CinemaTheatre findById(Long id);
+
+	// public CinemaTheatre findById(Long id);
 	public List<CinemaTheatre> findByType(CinemaTheatreType type);
-	
+
 }
