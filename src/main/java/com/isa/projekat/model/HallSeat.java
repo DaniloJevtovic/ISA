@@ -19,10 +19,10 @@ public class HallSeat implements Serializable {
 	private Long id;
 
 	@Column(name = "seat_row", nullable = false)
-	private int row;
+	private int row;		//broj reda
 
 	@Column(name = "seat_number", nullable = false)
-	private int number;
+	private int number;		//broj sjedista u redu
 
 	@ManyToOne
 	private Hall hall;

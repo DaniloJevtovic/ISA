@@ -19,4 +19,5 @@ var theaters="../api/cinemastheatres/getTheaters"
 			 alert("Greska");
 		 }
 	});
-}
+	}
+

@@ -24,10 +24,10 @@ public class Hall implements Serializable {
 	private int number;
 
 	@Column(name = "hall_rows", nullable = false)
-	private int rows;
+	private int rows;			//broj redova
 
 	@Column(name = "hall_seatrows", nullable = false)
-	private int seatsPerRow;
+	private int seatsPerRow;	//broj sjedista u redu
 
 	@ManyToOne(targetEntity = CinemaTheatre.class)
 	private CinemaTheatre cinemaTheatre;

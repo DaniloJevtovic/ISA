@@ -9,12 +9,12 @@ public interface ReservationService {
 	Reservation save(Reservation reservation);
 
 	Reservation getReservation(Long resId);
-	
+
 	List<Reservation> getAllReservations();
 
 	List<Reservation> getUserReservation(Long userId);
 
 	List<Reservation> getUserVisitHistory(Long userId);
 
-	
+	Reservation cancelReservation(Long resId);
 }

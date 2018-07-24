@@ -51,10 +51,10 @@ insert into projection (prj_date, movie_show_id) values ('2011-04-12', '3')
 insert into movie_show_projections (movie_show_id, projections_id) values (1, 1)
 
 --sjediste
-insert into hall_seat (seat_number, seat_row, hall_id) values (4, 5, 1)		--br sjedista 4, red 5.
+insert into hall_seat (seat_number, seat_row, hall_id) values (4, 15, 1)		--br sjedista 4, red 5.
 
 --sjediste sala
-insert into hall_hall_seats (hall_id, hall_seats_id) values (1, 1)
+--insert into hall_hall_seats (hall_id, hall_seats_id) values (1, 1)
 
 --vrijeme projekcije
 insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('16:30', '200', 1, 1)
@@ -68,6 +68,6 @@ insert into projection_projection_times (projection_id, projection_times_id) val
 insert into projection_projection_times (projection_id, projection_times_id) values (1, 2)
 insert into projection_projection_times (projection_id, projection_times_id) values (1, 3)
 
-insert into projection_time_hall_seats (projection_time_id, hall_seats_id) values (1, 1)
+--insert into projection_time_hall_seats (projection_time_id, hall_seats_id) values (1, 1)
 
-insert into reservation (user_id, projection_time_id, price, visited) values (1, 1, 200, 0)
+--insert into reservation (user_id, projection_time_id, price, visited) values (1, 1, 200, 0)
