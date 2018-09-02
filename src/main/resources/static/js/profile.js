@@ -62,8 +62,10 @@ $(document).on('submit','.editform', function(e) {
 			dataType : "json",
 			data:formToJSON(),
 			success : function(data) {
-				location.reload();
+				//location.reload();
+				
 				sessionStorage.setItem('loggedUser',JSON.stringify(data));
+				window.location.href = "index.html"
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
 				alert("AJAX ERROR: " + errorThrown + "load profile");

@@ -32,8 +32,24 @@ var reservations_url = "../api/reservations/getAllForLogged"
 			success: function(data){
 				$("#movies").empty();
 				for(i=0; i<data.length; i++){
-					$("#movies").append(`<p id=`+data[i].id+`> Naziv: `+data[i].name+` <br> Zanr: `+data[i].genre+` 
-					<br> Trajanje: `+data[i].duration+`  <br> Rejting: `+data[i].rating+` <br> <hr></p>`);	
+					$("#movies").append(`
+							<div class="column left" style="background-color: orange;">
+								<p> <img src="`+ data[i].poster + ` "></p> <hr>
+							</div>
+
+							<div class="column right" style="background-color: orange;">
+								<p id=`+data[i].id+`>
+									Naziv: `+data[i].name+` <br> 
+									Zanr: `+data[i].genre+` <br>
+									Glumci: ` +data[i].actors+ ` <br>
+									Trajanje: `+data[i].duration+` <br>  
+									Rejting: `+data[i].rating+` <br> 
+									Direktor: ` + data[i].director+ ` <br>
+									Opis : ` +data[i].description+` <br>
+								</p>
+							</div>
+							<hr>
+					`);	
 					//<button type="button" onclick="reservation(`+data[i].id+`)" class="btn btn-info btn-sm">Rezervisi</button> <hr> </p>`);	
 				}
 				

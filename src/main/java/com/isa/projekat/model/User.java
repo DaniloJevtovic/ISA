@@ -41,7 +41,7 @@ public class User implements Serializable {
 	@OneToMany
 	private List<Reservation> reservations;
 
-	private User() {
+	public User() {
 	}
 
 	public Long getId() {

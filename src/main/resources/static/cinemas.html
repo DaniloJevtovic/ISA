@@ -26,6 +26,38 @@
 	border: 1px solid #ddd;
 	margin-bottom: 12px;
 }
+
+
+
+/* kolone */
+
+* {
+    box-sizing: border-box;
+}
+
+/* Create two unequal columns that floats next to each other */
+.column {
+    float: left;
+    padding: 10px;
+}
+
+.left {
+  width: 25%;
+  height : 285px;
+}
+
+.right {
+  width: 75%;
+  height : 285px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
 </style>
 
 </head>
@@ -90,28 +122,30 @@
 		
 	</div>
 
-  	<div class="modal fade" id="cinemaModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="naslov">Repertoar</h4>
-        </div>
-        <div class="modal-body" id="modal-body">
-          <div class = "form-group">
-          	<p id="movies"></p>
-          </div>
-          <p id="movies"></p>
-        </div>
-        <div class="modal-footer">
-          
-          <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
-        </div>
-      </div>
-    </div>
-  	</div>
-  	
- 
-  	<div class="modal fade" id="modalReservation" role="dialog">
+	<div class="modal fade" id="cinemaModal" role="dialog">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="naslov">Repertoar</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<div class="modal-body" id="modal-body">
+					<div id="movies">
+					</div>
+
+
+					<!--  <p id="movies"></p> --> 
+				</div>
+				<div class="modal-footer">
+
+					<button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="modalReservation" role="dialog">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
