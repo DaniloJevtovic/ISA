@@ -34,12 +34,12 @@ var reservations_url = "../api/reservations/getAllForLogged"
 				for(i=0; i<data.length; i++){
 					$("#movies").append(`
 							<div class="column left" style="background-color: orange;">
-								<p> <img src="`+ data[i].poster + ` "></p> <hr>
+								<p> <img src="`+ data[i].poster + `"></p> <hr>
 							</div>
-
+							
 							<div class="column right" style="background-color: orange;">
 								<p id=`+data[i].id+`>
-									Naziv: `+data[i].name+` <br> 
+									<b>Naziv: `+data[i].name+` </b> <br> 
 									Zanr: `+data[i].genre+` <br>
 									Glumci: ` +data[i].actors+ ` <br>
 									Trajanje: `+data[i].duration+` <br>  
@@ -47,8 +47,12 @@ var reservations_url = "../api/reservations/getAllForLogged"
 									Direktor: ` + data[i].director+ ` <br>
 									Opis : ` +data[i].description+` <br>
 								</p>
+								
+								<button type="button" onclick="reservation(`+data[i].id+`)" class="btn btn-info btn-sm">Rezervisi</button> 
 							</div>
-							<hr>
+							
+							
+							
 					`);	
 					//<button type="button" onclick="reservation(`+data[i].id+`)" class="btn btn-info btn-sm">Rezervisi</button> <hr> </p>`);	
 				}
@@ -70,7 +74,7 @@ var reservations_url = "../api/reservations/getAllForLogged"
 				var user = data;
 				if(user.email != null){
 					$('#cinemaModal').modal('hide');
-					$('#modalReservation').modal('show');	//otvara drugi dijalog
+					$('#modalReservation2').modal('show');	//otvara drugi dijalog
 					
 					
 				}

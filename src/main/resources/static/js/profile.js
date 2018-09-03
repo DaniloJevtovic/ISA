@@ -18,7 +18,7 @@ function getCinemas(){
                               <td>`+data[i].name+`</td>
                               <td>`+data[i].adress+`</td>
                               <td>`+data[i].description+`</td>
-                              <td align="center"><button type="button" onclick="generateRepertoire(`+data[i].id+`)" id=`+data[i].id+` class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalR">Rezervisi</button></td>
+                              <td align="center"><button type="button" onclick="generateRepertoire(`+data[i].id+`)" id=`+data[i].id+` class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalR">Pogledaj</button></td>
                           </tr>`);
 			 }
 		 },
@@ -50,7 +50,7 @@ function getTheaters(){
 	});
 }
 	
-$(document).on('submit','.editform', function(e) {
+$(document).on('submit','#editform', function(e) {
 	e.preventDefault();
 	var p = $('#password').val();
 	var cp = $('#password-confirm').val();
@@ -65,7 +65,7 @@ $(document).on('submit','.editform', function(e) {
 				//location.reload();
 				
 				sessionStorage.setItem('loggedUser',JSON.stringify(data));
-				window.location.href = "index.html"
+				window.location.href = "profile.html"
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
 				alert("AJAX ERROR: " + errorThrown + "load profile");
