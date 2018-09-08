@@ -29,6 +29,29 @@ var islogged_url = "../api/users/isLoggedIn"
 	
 	}
 
+	function getTheaters(){
+		$.ajax({
+			url: theaters,
+			method: "GET",
+			success: function(data){
+				$(".theatersTable").empty();
+				for(i=0;i<data.length;i++){
+					$(".theatersTable").append(`<tr>
+							<td>`+data[i].name+`</td>
+							<td>`+data[i].adress+`</td>
+							<td>`+data[i].description+`</td>
+							<td align="center"><button type="button" onclick="generateRepertoire(`+data[i].id+`, '`+data[i].name+`')" id=`+data[i].id+` class="btn btn-info btn-sm" data-toggle="modal" data-target="#cinemaModal">Pogledaj</button></td>
+                          	</tr>`);
+			 }
+		 },
+		 error: function(){
+			 alert("Greska");
+		 }
+	});
+	
+	}
+
+
 	
 	function generateRepertoire(id, naziv){
 		$.ajax({
@@ -264,7 +287,7 @@ var islogged_url = "../api/users/isLoggedIn"
 	    
 	});
 
-	
+	//mozes i obrisati
 	function getReservations(){
 		$.ajax({
 			 url: reservations_url,
