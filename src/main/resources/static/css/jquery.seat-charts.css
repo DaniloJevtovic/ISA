@@ -3,14 +3,14 @@ div.seatCharts-container {
 }
 div.seatCharts-cell {
 
-	height: 20px;
-	width: 20px;
+	height: 25px;
+	width: 25px;
 	margin: 1px;
 	float: left;
 	text-align: center;
 	outline: none;
 	font-size: 10px;
-	line-height:1px;
+	line-height:8px;
 	color: blue;
 
 }
@@ -35,7 +35,7 @@ div.seatCharts-space {
 	background-color: white;
 }
 div.seatCharts-row {
-	height: 30px;
+	height: 27px;
 }
 
 div.seatCharts-row:after {
@@ -43,7 +43,7 @@ div.seatCharts-row:after {
 }
 
 div.seatCharts-seat.selected {
-	background-color: aqua;
+	background-color: pink;
 }
 
 div.seatCharts-seat.focused {
