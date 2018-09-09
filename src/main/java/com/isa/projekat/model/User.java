@@ -40,6 +40,12 @@ public class User implements Serializable {
 
 	@OneToMany
 	private List<Reservation> reservations;
+	
+	@ManyToMany
+	private List<User> friends;
+	
+	@ManyToMany
+	private List<User> friendRequests;
 
 	public User() {
 	}
@@ -122,6 +128,22 @@ public class User implements Serializable {
 
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
+	}
+
+	public List<User> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(List<User> friends) {
+		this.friends = friends;
+	}
+
+	public List<User> getFriendRequests() {
+		return friendRequests;
+	}
+
+	public void setFriendRequests(List<User> friendRequests) {
+		this.friendRequests = friendRequests;
 	}
 
 }

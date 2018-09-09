@@ -94,4 +94,59 @@ public class UserController {
 		return new ResponseEntity<List<UserDto>>(usersdto, HttpStatus.FOUND);
 	}
 
+	@RequestMapping(value = "/sendFriendRequest/{reciverId}", method = RequestMethod.GET)
+	public ResponseEntity<String> sendFriendRequest(@PathVariable Long reciverId, HttpServletRequest request) {
+		User senderRequest = (User) request.getSession().getAttribute("loggedUser");
+		User reciverRequest = userService.sendFriendRequest(senderRequest.getId(), reciverId);
+
+		if (reciverRequest != null) {
+			return new ResponseEntity<String>("friends request sent", HttpStatus.ACCEPTED);
+		}
+
+		else {
+			return new ResponseEntity<String>("alredy sent", HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@RequestMapping(value = "/approveFriendRequest{sender}", method = RequestMethod.GET)
+	public ResponseEntity<String> approveFriendRequest(@PathVariable Long sender, HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute("loggedUser");
+		userService.approveFriendRequest(sender, user.getId());
+		return new ResponseEntity<String>("request approved", HttpStatus.ACCEPTED);
+	}
+	
+	@RequestMapping(value = "/getFriends/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<UserDto>> getFriends(@PathVariable Long id) {
+		List<User> friends = userService.getFriends(id);
+		List<UserDto> friendsDto = new ArrayList<UserDto>();
+		
+		for(User friend : friends) {
+			friendsDto.add(new UserDto(friend));
+		}
+		
+		return new ResponseEntity<List<UserDto>>(friendsDto, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getFriendRequests/{id}", method = RequestMethod.GET)
+	public ResponseEntity<List<UserDto>> getFriendRequests(@PathVariable Long id) {
+		List<User> requests = userService.getFriendRequests(id);
+		List<UserDto> requestDto = new ArrayList<UserDto>();
+		
+		for(User friend : requests) {
+			requestDto.add(new UserDto(friend));
+		}
+		
+		return new ResponseEntity<List<UserDto>>(requestDto, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/removeFriend/{friendId}", method = RequestMethod.GET)
+	public ResponseEntity<UserDto> removeFriend(@PathVariable Long friendId, HttpServletRequest request) {
+		User user = (User) request.getSession().getAttribute("loggedUser");
+		User friend = userService.removeFriend(user.getId(), friendId);
+		UserDto friendDto = new UserDto(friend);
+		return new ResponseEntity<UserDto>(friendDto, HttpStatus.OK);
+	}
+
+	
+	
 }

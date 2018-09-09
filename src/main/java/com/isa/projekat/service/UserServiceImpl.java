@@ -2,6 +2,7 @@ package com.isa.projekat.service;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
@@ -129,6 +130,131 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return userRepository.save(currentUser);
+	}
+
+	@Override
+	public User sendFriendRequest(Long sender, Long reciver) {
+		// TODO Auto-generated method stub
+		User senderRequest = userRepository.findById(sender);
+		User reciverRequest = userRepository.findById(reciver);
+
+		Hibernate.initialize(reciverRequest.getFriendRequests());
+
+		if (reciverRequest != null && senderRequest != reciverRequest) {
+			for (User user : reciverRequest.getFriendRequests()) {
+				if (user.getId() == sender)
+					return null;
+			}
+
+			for (User user : getFriends(reciver)) {
+				if (user.getId() == sender)
+					return null;
+			}
+
+			reciverRequest.getFriendRequests().add(senderRequest);
+			userRepository.save(reciverRequest);
+			return reciverRequest;
+		}
+
+		return null;
+	}
+
+	@Override
+	public User approveFriendRequest(Long sender, Long reciver) {
+		// TODO Auto-generated method stub
+		User senderRequest = userRepository.findById(sender);
+		User reciverRequest = userRepository.findById(reciver);
+
+		Hibernate.initialize(senderRequest.getFriendRequests());
+		Hibernate.initialize(senderRequest.getFriends());
+		Hibernate.initialize(reciverRequest.getFriendRequests());
+		Hibernate.initialize(reciverRequest.getFriends());
+
+		boolean approved = false;
+
+		for (User user : reciverRequest.getFriendRequests())
+			if (user.getId() == sender)
+				approved = true;
+
+		if (reciverRequest != null && approved == true) {
+			reciverRequest.getFriendRequests().remove(senderRequest);
+			senderRequest.getFriendRequests().remove(reciverRequest);
+			reciverRequest.getFriends().add(reciverRequest);
+			userRepository.save(reciverRequest);
+			return reciverRequest;
+		}
+
+		return null;
+	}
+
+	@Override
+	public User declineFriendRequest(Long sender, Long reciver) {
+		// TODO Auto-generated method stub
+		User senderRequest = userRepository.findById(sender);
+		User reciverRequest = userRepository.findById(reciver);
+
+		Hibernate.initialize(reciverRequest.getFriendRequests());
+		reciverRequest.getFriendRequests().remove(senderRequest);
+		userRepository.save(reciverRequest);
+
+		return senderRequest;
+	}
+
+	@Override
+	public List<User> getFriends(Long id) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findById(id);
+		Hibernate.initialize(user.getFriends());
+
+		if (user != null) {
+			List<User> friends = user.getFriends();
+			return friends;
+		}
+
+		return null;
+	}
+
+	@Override
+	public List<User> getFriendRequests(Long id) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findById(id);
+		Hibernate.initialize(user.getFriendRequests());
+		if(user != null) {
+			List<User> friendRequests = user.getFriendRequests();
+			return friendRequests;
+		}
+		
+		return null;
+	}
+
+	@Override
+	public User removeFriend(Long userId, Long friendId) {
+		// TODO Auto-generated method stub
+		User user = userRepository.findById(userId);
+		User friend = userRepository.findById(friendId);
+		
+		Hibernate.initialize(user.getFriends());
+		Hibernate.initialize(friend.getFriends());
+		
+		List<User> userFriends = user.getFriends();
+		List<User> friendFriends = friend.getFriends();
+		
+		//sa obje strane treba obrisati prijateljstvo
+		
+		for(int i=0; i<userFriends.size(); i++) {
+			if(userFriends.get(i).getId() == friendId)
+				userFriends.remove(i);
+		}
+		
+		for(int i=0; i<friendFriends.size(); i++) {
+			if(friendFriends.get(i).getId() == userId)
+				friendFriends.remove(i);
+		}
+		
+		userRepository.save(user);
+		userRepository.save(friend);
+		
+		return friend;
 	}
 
 }

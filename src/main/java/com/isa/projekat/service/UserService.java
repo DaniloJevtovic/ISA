@@ -24,4 +24,19 @@ public interface UserService {
 
 	User editUser(User user, Long id);
 
+	//friends
+	
+	User sendFriendRequest(Long sender, Long reciver);
+
+	User approveFriendRequest(Long sender, Long reciver);
+
+	User declineFriendRequest(Long sender, Long reciver);
+
+	List<User> getFriends(Long id);
+
+	List<User> getFriendRequests(Long id);
+	
+	User removeFriend(Long userId, Long friendId);
+	
+
 }
