@@ -14,6 +14,7 @@
 	<!--  <script src="js/profile.js"></script> -->
 	<!--  <script src="js/cinemas.js"></script> -->
 	<script src="js/userCinTea.js"></script>
+	<script src="js/sortTable.js"></script>
 	<script src="js/jquery.seat-charts.min.js"></script>
   	
   	<link href="css/toastr.css" rel="stylesheet">
@@ -58,10 +59,10 @@
 						<table id="dataTable" class="table table-hover table-bordered">
 							<thead class="thead-dark">
 								<tr>
-									<th scope="col" class="text-center">Naziv</th>
-									<th scope="col" class="text-center">Adresa</th>
-									<th scope="col" class="text-center">Opis</th>
-									<th scope="col" class="text-center">Repertoar</th>
+									<th onclick="sortTable(0)" scope="col">Naziv</th>
+									<th onclick="sortTable(1)" scope="col">Adresa</th>
+									<th scope="col">Opis</th>
+									<th scope="col">Repertoar</th>
 								</tr>
 							</thead>
 							<tbody class="theatersTable">

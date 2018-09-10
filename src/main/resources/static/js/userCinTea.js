@@ -312,4 +312,3 @@ var islogged_url = "../api/users/isLoggedIn"
 		});
 	}
 	
-	

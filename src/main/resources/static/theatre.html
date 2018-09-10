@@ -12,7 +12,7 @@
   	<script src="js/index.js" type="text/javascript"></script>
 	<script src="js/profile.js"></script>
 	<script src="js/theatre.js"></script>
-	
+	<script src="js/sortTable.js"></script>
   	<link href="css/toastr.css" rel="stylesheet">
   	<link href="css/columns.css" rel="stylesheet">
 	<link href="css/cinthe.css" rel="stylesheet">
@@ -53,10 +53,10 @@
 			<table id="dataTable" class="table table-hover table-bordered">
 				<thead class="thead-dark">
 					<tr>
-						<th scope="col" class="text-center">Naziv</th>
-						<th scope="col" class="text-center">Adresa</th>
-						<th scope="col" class="text-center">Opis</th>
-						<th scope="col" class="text-center">Repertoar</th>
+						<th scope="col" onclick="sortTable(0)">Naziv</th>
+						<th scope="col" onclick="sortTable(1)">Adresa</th>
+						<th scope="col">Opis</th>
+						<th scope="col">Repertoar</th>
 					</tr>
 				</thead>
 				<tbody class="theatersTable">
