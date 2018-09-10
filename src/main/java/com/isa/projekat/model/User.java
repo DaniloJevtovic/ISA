@@ -42,9 +42,15 @@ public class User implements Serializable {
 	private List<Reservation> reservations;
 	
 	@ManyToMany
+	@JoinTable(name="friends", joinColumns=@JoinColumn(name="personId"), inverseJoinColumns=@JoinColumn(name="friendId"))
 	private List<User> friends;
 	
 	@ManyToMany
+	@JoinTable(name="friends", joinColumns=@JoinColumn(name="friendId"), inverseJoinColumns=@JoinColumn(name="personId"))
+	private List<User> friends2; 
+	
+	@ManyToMany
+	@JoinTable(name="requests", joinColumns=@JoinColumn(name="receiver"))
 	private List<User> friendRequests;
 
 	public User() {
@@ -144,6 +150,14 @@ public class User implements Serializable {
 
 	public void setFriendRequests(List<User> friendRequests) {
 		this.friendRequests = friendRequests;
+	}
+
+	public List<User> getFriends2() {
+		return friends2;
+	}
+
+	public void setFriends2(List<User> friends2) {
+		this.friends2 = friends2;
 	}
 
 }
