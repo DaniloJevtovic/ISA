@@ -9,13 +9,15 @@
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   	<script src="js/toastr.min.js"></script>
+	<script src="js/profile.js"></script> 
+  	
   	<link href="css/toastr.css" rel="stylesheet">
   	
-  	<!--  <link href="css/profile.css" rel="stylesheet"> -->
+  	<!--  <link href="css/profile.css" rel="stylesheet">	-->
 	
 </head>
 
-<body>
+<body onload="getFriendRequests(); getFriends()">
 
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -29,14 +31,14 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li><a href="profile.html">Pocetna</a></li>
+					<li><a href="profile.html">Početna</a></li>
 					<li><a href="userCinemas.html">Bioskopi</a></li>
-					<li><a href="userTheatres.html">Pozorista</a></li>
+					<li><a href="userTheatres.html">Pozorišta</a></li>
 					<li><a href="userReservations.html">Rezervacije</a></li>
 					<li class="active"><a href="userFriends.html">Prijatelji</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="userSettings.html"><span class="glyphicon glyphicon-user"></span> Podesavanja</a></li>
+					<li><a href="userSettings.html"><span class="glyphicon glyphicon-user"></span> Podešavanja</a></li>
 					<li><a href="index.html" onclick="logout()"><span class="glyphicon glyphicon-log-out"></span> Odjava</a></li>
 				</ul>
 			</div>
@@ -50,38 +52,41 @@
 			<div class="column" id="friends">
 				
 				<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#friendModal">Dodaj prijatelja</button>
-				<h2>Lista prijatelja</h2> 
-				<br>
+				<h2>Lista prijatelja</h2> <br>
 				<div style="margin-top: 1px;">
-					<table id="dataTable" class="table table-hover table-bordered" style="width: 100%">
+					<table id="dataTable" class="table table-striped" style="width: 100%">
 						<thead class="thead-dark">
 							<tr>
-								<th scope="col" class="text-center">Ime</th>
-								<th scope="col" class="text-center">Prezime</th>
-								<th scope="col" class="text-center">Email</th>
-								<th scope="col" class="text-center">Ukloni</th>
+								<th scope="col">Ime</th>
+								<th scope="col">Prezime</th>
+								<th scope="col">Email</th>
+								<th scope="col">Grad</th>
+								<th scope="col">Telefon</th>
+								<th scope="col"></th>
 							</tr>
 						</thead>
-						<tbody class="friendsTable">
+						<tbody class="listFriendsTable">
 
 						</tbody>
 					</table>
 				</div>
 			</div>
-
+			<br> <br>
 			<div class="column" id="requests">
-				<h2>Zahtjevi</h2> <br>
+				<h2>Zahtjevi za prijateljstvo</h2> <br>
 				<div style="margin-top: 1px;">
 					<table id="dataTable" class="table table-striped"style="width: 100%">
 						<thead>
 							<tr>
-								<th scope="col" class="text-center">Ime</th>
-								<th scope="col" class="text-center">Prezime</th>
-								<th scope="col" class="text-center">Email</th>
-								<th scope="col" class="text-center">f</th>
+								<th scope="col">Ime</th>
+								<th scope="col">Prezime</th>
+								<th scope="col">Email</th>
+								<th scope="col">Grad</th>
+								<th scope="col">Telefon</th>
+								<th scope="col"></th>
 							</tr>
 						</thead>
-						<tbody class="friendsTable">
+						<tbody class="requestFriendsTable">
 
 						</tbody>
 					</table>
@@ -99,29 +104,29 @@
 					</div>
 					<div class="modal-body" id="modal-body">
 						<div class="row">
-							<div class="column" id="searchFriends" style="float: left; width: 40%; padding: 10px;">
+							<!-- kolona za pretragu -->
+							<div class="column" style="float: left; width: 40%; padding: 10px;">
 								<h4>Pretraga</h4>
 								
 								<label for="inputName" class="sr-only">Ime:</label> 
-								<input type="text" name="name" class="form-control" id="name" placeholder="Ime" required autofocus style="margin: 8px 0; width : 80%;"> 
+								<input type="text" name="name" class="form-control" id="friendName" placeholder="Ime" required autofocus style="margin: 8px 0; width : 80%;"> 
 								
 								<label for="inputSurname" class="sr-only">Prezime:</label> 
-								<input type="text" name="name" class="form-control" id="surname" placeholder="Prezime" required autofocus style="margin: 8px 0; width : 80%;">
+								<input type="text" name="name" class="form-control" id="friendSurname" placeholder="Prezime" required autofocus style="margin: 8px 0; width : 80%;">
 
-								<button class="btn btn-primary btn-block" type="submit" style="margin: 8px 0; width : 80%;">Pretraga</button>
+								<button class="btn btn-primary btn-block" id="searchFriends" type="submit" style="margin: 8px 0; width : 80%;">Pretraga</button>
 							</div>
 						
-							<div class="column" id="searchResult" style="float: left; width: 60%; padding: 10px;">
-								
-
+							<!-- kolona rezultata -->
+							<div class="column" style="float: left; width: 60%; padding: 10px;">
 								<table id="dataTable" class="table table-striped"
 									style="width: 100%">
 									<thead>
 										<tr>
-											<th scope="col" class="text-center">Ime</th>
-											<th scope="col" class="text-center">Prezime</th>
-											<th scope="col" class="text-center">Email</th>
-											<th scope="col" class="text-center">f</th>
+											<th scope="col">Ime</th>
+											<th scope="col">Prezime</th>
+											<th scope="col">Email</th>
+											<th scope="col"></th>
 										</tr>
 									</thead>
 									<tbody class="friendsTable">

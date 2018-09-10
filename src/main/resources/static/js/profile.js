@@ -112,16 +112,18 @@ function getReservations(){
 	$.ajax({
 		 url: reservations_url,
 		 method: "GET",
-		 success: function(data){
+		 success: function(data){			 
 			 $(".reservationsTable").empty();
-			 for(i=0;i<data.length;i++){
+			 
+			 for(i=0; i<data.length; i++){
 				 $(".reservationsTable").append(`<tr>
                               <td><span class="font-weight-bold">`+data[i].projectionTimeDto.projectionDto.date+`</span></td>
                               <td><span class="font-weight-bold">`+data[i].projectionTimeDto.time+`</span></td>
                               <td><span class="font-weight-bold">`+data[i].projectionTimeDto.hallDto.cinemaTheatreDto.name+`</span></td>
                               <td><span class="font-weight-bold">`+data[i].projectionTimeDto.projectionDto.movieShowDto.name+`</span></td>
-                              <td><span class="font-weight-bold">`+data[i].projectionTimeDto.projectionDto.movieShowDto.name+`</span></td>
-                              <td align="center"><button onclick="cancelReservation(`+data[i].id+`)" type="button" class="btn btn-danger btn-sm" >Otkazi</button></td>
+                              <td><span class="font-weight-bold">`+data[i].projectionTimeDto.hallDto.hallNumber+`</span></td>
+                              <td><span class="font-weight-bold">`+data[i].hallSeatDtos.seatNumber+`</span></td>
+                              <td align="center"><button onclick="cancelReservation(`+data[i].id+`)" type="button" class="btn btn-danger btn-xs" >Otkazi</button></td>
                               
                           </tr>`);
 			 }
@@ -145,4 +147,147 @@ function cancelReservation(id){
 	});
 }
 
+function getFriendRequests(){
+	$.ajax({
+		 url: "../api/users/getFriendRequests/"+loggeduser.id,
+		 method: "GET",
+		 success: function(data){
+			 $(".requestFriendsTable").empty();
+			 for(i=0;i<data.length;i++){
+				 $(".requestFriendsTable").append(`<tr>
+                                
+                                   <td>`+data[i].name+`</td>
+                                   <td>`+data[i].surname+`</td>
+                                   <td>`+data[i].email+`</td>
+                                   <td>`+data[i].city+`</td>
+                                   <td>`+data[i].phone+`</td>
+                                   <td>
+                                   		<button type="button" name=`+data[i].id+` class="btn btn-success btn-xs acceptFriendReq">Prihvati</button>
+                                   		<button type="button" name=`+data[i].id+` class="btn btn-danger btn-xs declineFriendReq">Odbij</button>
+                                   </td>
+                            </tr>`);
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting friend requests!");
+		 }
+	});
+}
 
+function getFriends(){
+	$.ajax({
+		 url: "../api/users/getFriends/"+loggeduser.id,
+		 method: "GET",
+		 success: function(data){
+			 $(".listFriendsTable").empty();
+			 for(i=0;i<data.length;i++){
+				 $(".listFriendsTable").append(`<tr>
+                                  <td>`+data[i].name+`</td>
+                                  <td>`+data[i].surname+`</td>
+                                  <td>`+data[i].email+`</td>
+                                  <td>`+data[i].city+`</td>
+                                  <td>`+data[i].phone+`</td>
+                                  <td><button class="btn btn-danger btn-xs" onclick="removeFriend(`+data[i].id+`)">Ukloni</button></td>
+                           </tr>`);
+			 }
+		 },
+		 error: function(){
+			 alert("Error while getting Friends!");
+		 }
+	});
+}
+
+
+$(document).on('click','#searchFriends',function(e){
+	e.preventDefault();
+	var name = $('#friendName').val();
+	var surname = $('#friendSurname').val();
+	var loggedId = loggeduser.id;
+	if(name == ''){
+		name = "nema";
+	}
+	if(surname ==''){
+		surname="nema";
+	}
+	
+	$.ajax({
+		 url: "../api/users/search/"+name+"/"+surname,
+		 method: "GET",
+		 success: function(data){
+			 $(".friendsTable").empty();
+			 for(i=0;i<data.length;i++){
+				 if(data[i].id != loggedId){
+					 $(".friendsTable").append(`<tr>
+	                         <td>`+data[i].name+`</td>
+	                         <td>`+data[i].surname+`</td>
+	                         <td>`+data[i].email+`</td>
+	                         <td><button class="btn btn-success btn-xs" onclick="sendFriendRequest(`+data[i].id+`)">Dodaj</button></td>
+	                     </tr>`);
+				 }
+			 }
+				 
+		 },
+		 error: function(){
+			 toastr.error("nije pronadjen korisnik");
+		 }
+	});
+});
+
+function sendFriendRequest(receiverid){
+	$.ajax({
+		 url: "../api/users/sendFriendRequest/"+receiverid,
+		 method: "GET",
+		 success: function(){
+			 toastr.success("zahtjev poslat");
+				 
+		 },
+		 error: function(){
+			 toastr.error("vec poslat zahtjev");
+		 }
+	});
+}
+
+$(document).on('click','.acceptFriendReq', function(e) {
+	e.preventDefault();
+	var id = $(this).attr('name');
+	$.ajax({
+		 url: "../api/users/approveFriendRequest/"+id,
+		 method: "GET",
+		 success: function(){
+			 
+				 getFriendRequests();
+				 getFriends();
+		 },
+		 error: function(){
+			 alert("greska");
+		 }
+	});
+});
+
+$(document).on('click','.declineFriendReq', function(e) {
+	e.preventDefault();
+	var id = $(this).attr('name');
+	$.ajax({
+		 url: "../api/users/declineFriendRequest/"+id,
+		 method: "GET",
+		 success: function(){			 
+				 getFriendRequests();
+		 },
+		 error: function(){
+			 alert("greska");
+		 }
+	});
+});
+
+function removeFriend(removingId){
+	$.ajax({
+		 url: "../api/users/removeFriend/"+removingId,
+		 method: "GET",
+		 success: function(){
+			 getFriends();
+		 },
+		 error: function(){
+			 toastr.error("greska");
+		 }
+	});
+}
