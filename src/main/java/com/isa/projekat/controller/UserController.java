@@ -108,11 +108,23 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value = "/approveFriendRequest{sender}", method = RequestMethod.GET)
+	@RequestMapping(value = "/approveFriendRequest/{sender}", method = RequestMethod.GET)
 	public ResponseEntity<String> approveFriendRequest(@PathVariable Long sender, HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		userService.approveFriendRequest(sender, user.getId());
 		return new ResponseEntity<String>("request approved", HttpStatus.ACCEPTED);
+	}
+	
+	@RequestMapping(value="/declineFriendRequest/{pendingId}", method=RequestMethod.GET)
+	public ResponseEntity<UserDto> declineFriendRequest(@PathVariable Long pendingId,HttpServletRequest request){
+		User user = (User) request.getSession().getAttribute("loggedUser");
+		if(user != null) {
+			User deleted = userService.declineFriendRequest(pendingId, user.getId());
+			UserDto deletedDto = new UserDto(deleted);
+			return new ResponseEntity<UserDto>(deletedDto, HttpStatus.OK);
+		}
+		UserDto deldto = null;
+		return new ResponseEntity<UserDto>(deldto, HttpStatus.BAD_GATEWAY);
 	}
 	
 	@RequestMapping(value = "/getFriends/{id}", method = RequestMethod.GET)
@@ -147,6 +159,20 @@ public class UserController {
 		return new ResponseEntity<UserDto>(friendDto, HttpStatus.OK);
 	}
 
+	
+	@RequestMapping(value="/search/{name}/{surname}")
+	public ResponseEntity<List<UserDto>> searchUsers(@PathVariable String name, @PathVariable String surname){
+		List<User> searched = userService.searchUsers(name, surname);
+		List<UserDto> searcheddto = new ArrayList<UserDto>();
+		for(User user : searched) {
+			searcheddto.add(new UserDto(user));
+		}
+		if(searched.size() != 0) {
+			return new ResponseEntity<List<UserDto>>(searcheddto,HttpStatus.OK);
+		}else {
+			return new ResponseEntity<List<UserDto>>(searcheddto,HttpStatus.NOT_FOUND);
+		}
+	}
 	
 	
 }
