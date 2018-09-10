@@ -1,5 +1,6 @@
 package com.isa.projekat.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -140,7 +141,7 @@ public class UserServiceImpl implements UserService {
 
 		Hibernate.initialize(reciverRequest.getFriendRequests());
 
-		if (reciverRequest != null && senderRequest != reciverRequest) {
+		if (reciverRequest != null && sender != reciver) {
 			for (User user : reciverRequest.getFriendRequests()) {
 				if (user.getId() == sender)
 					return null;
@@ -167,8 +168,10 @@ public class UserServiceImpl implements UserService {
 
 		Hibernate.initialize(senderRequest.getFriendRequests());
 		Hibernate.initialize(senderRequest.getFriends());
+		Hibernate.initialize(senderRequest.getFriends2());
 		Hibernate.initialize(reciverRequest.getFriendRequests());
 		Hibernate.initialize(reciverRequest.getFriends());
+		Hibernate.initialize(reciverRequest.getFriends2());
 
 		boolean approved = false;
 
@@ -179,7 +182,7 @@ public class UserServiceImpl implements UserService {
 		if (reciverRequest != null && approved == true) {
 			reciverRequest.getFriendRequests().remove(senderRequest);
 			senderRequest.getFriendRequests().remove(reciverRequest);
-			reciverRequest.getFriends().add(reciverRequest);
+			reciverRequest.getFriends().add(senderRequest);
 			userRepository.save(reciverRequest);
 			return reciverRequest;
 		}
@@ -205,10 +208,17 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		User user = userRepository.findById(id);
 		Hibernate.initialize(user.getFriends());
+		Hibernate.initialize(user.getFriends2());
 
 		if (user != null) {
+			List<User> allFriends = new ArrayList<>();
 			List<User> friends = user.getFriends();
-			return friends;
+			List<User> friends2 = user.getFriends2();
+			
+			allFriends.addAll(friends);
+			allFriends.addAll(friends2);
+			
+			return allFriends;
 		}
 
 		return null;
