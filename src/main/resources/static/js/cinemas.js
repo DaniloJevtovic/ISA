@@ -13,7 +13,7 @@ var reservations_url = "../api/reservations/getAllForLogged"
                               <td>`+data[i].name+`</td>
                               <td>`+data[i].adress+`</td>
                               <td>`+data[i].description+`</td>
-                              <td align="center"><button type="button" onclick="generateRepertoire(`+data[i].id+`)" id=`+data[i].id+` class="btn btn-info btn-sm" data-toggle="modal" data-target="#cinemaModal">Pogledaj</button></td>
+                              <td align="center"><button type="button" onclick="generateRepertoire(`+data[i].id+`)" id=`+data[i].id+` class="btn btn-info btn-xs" data-toggle="modal" data-target="#cinemaModal">Pogledaj</button></td>
                           </tr>`);
 			 }
 		 },

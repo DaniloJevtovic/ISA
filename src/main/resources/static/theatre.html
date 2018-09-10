@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Pozorista</title>
+	<title>Pozorišta</title>
 	
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,20 +15,7 @@
 	
   	<link href="css/toastr.css" rel="stylesheet">
   	<link href="css/columns.css" rel="stylesheet">
-
-
-<style>
-#myInput {
-	background-image: url('/images/search.png');
-	background-position: 10px 10px;
-	background-repeat: no-repeat;
-	width: 100%;
-	font-size: 16px;
-	padding: 12px 20px 12px 40px;
-	border: 1px solid #ddd;
-	margin-bottom: 12px;
-}
-</style>
+	<link href="css/cinthe.css" rel="stylesheet">
 
 </head>
 <body onload="generateNavbar(); getTheaters(); searchFunction()">
@@ -45,9 +32,9 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li><a href="index.html">Pocetna</a></li>
+					<li><a href="index.html">Početna</a></li>
 					<li><a href="cinemas.html">Bioskopi</a></li>
-					<li class="active"><a href="theatre.html">Pozorista</a></li>
+					<li class="active"><a href="theatre.html">Pozorišta</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="register.html"><span class="glyphicon glyphicon-user"></span> Registracija</a></li>
@@ -57,10 +44,10 @@
 		</div>
 	</nav>
     
-	<h1 align="center">Pozorista</h1>
+	<h1 align="center">Pozorišta</h1> <br>
 	
     <div class="container">
-    <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Pretraga po nazivu.." title="Type in a name">
+    <input class="form-control input-sm" type="text" id="myInput" onkeyup="searchFunction()" placeholder="Filtriranje po nazivu..." title="Type in a name">
 
 		<div style="margin-top: 20px;">
 			<table id="dataTable" class="table table-hover table-bordered">
