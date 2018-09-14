@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.isa.projekat.model.Invite;
+import com.isa.projekat.model.InviteDto;
 import com.isa.projekat.model.Reservation;
 import com.isa.projekat.model.ReservationDto;
 import com.isa.projekat.model.User;
+import com.isa.projekat.service.InviteService;
 import com.isa.projekat.service.ReservationService;
 
 @RestController
@@ -24,6 +27,9 @@ public class ReservationController {
 
 	@Autowired
 	private ReservationService reservationService;
+
+	@Autowired
+	private InviteService inviteService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ReservationDto>> getAll() {
@@ -35,7 +41,6 @@ public class ReservationController {
 		return new ResponseEntity<List<ReservationDto>>(reservationDtos, HttpStatus.OK);
 	}
 
-	// prikaz svih rezervacija za registrovanog korisnika
 	@RequestMapping(value = "/getAllForLogged", method = RequestMethod.GET)
 	public ResponseEntity<List<ReservationDto>> getReservationsforLoggedUser(HttpServletRequest request) {
 		User logged = (User) request.getSession().getAttribute("loggedUser");
@@ -47,7 +52,6 @@ public class ReservationController {
 		return new ResponseEntity<List<ReservationDto>>(reservationDtos, HttpStatus.OK);
 	}
 
-	// istorija posjeta
 	@RequestMapping(value = "/getVisitsForLogged", method = RequestMethod.GET)
 	public ResponseEntity<List<ReservationDto>> getVisitsforLoggedUser(HttpServletRequest request) {
 		User logged = (User) request.getSession().getAttribute("loggedUser");
@@ -66,7 +70,6 @@ public class ReservationController {
 		return new ResponseEntity<ReservationDto>(reservationDto, HttpStatus.OK);
 	}
 
-	// otkazivanje rezervacije
 	@RequestMapping(value = "/cancel/{resId}", method = RequestMethod.DELETE)
 	public ResponseEntity<ReservationDto> cancelReservation(@PathVariable Long resId) {
 		Reservation deleted = reservationService.cancelReservation(resId);
@@ -78,4 +81,13 @@ public class ReservationController {
 			return new ResponseEntity<ReservationDto>(reservationDto, HttpStatus.BAD_REQUEST);
 		}
 	}
+
+	@RequestMapping(value = "/{resId}/sendInvite/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<InviteDto> sendInvite(@PathVariable Long resId, @PathVariable Long userId) {
+		Invite inv = inviteService.sendInvite(resId, userId);
+		InviteDto inviteDto = new InviteDto(inv);
+		inviteService.sendInviteEmail(userId, inv.getId());
+		return new ResponseEntity<InviteDto>(inviteDto, HttpStatus.OK);
+	}
+
 }

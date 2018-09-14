@@ -17,4 +17,6 @@ public interface ReservationService {
 	List<Reservation> getUserVisitHistory(Long userId);
 
 	Reservation cancelReservation(Long resId);
+	
+	void sendReservationMail(Long userId, Long reservationId);
 }

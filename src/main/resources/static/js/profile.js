@@ -115,15 +115,18 @@ function getReservations(){
 		 success: function(data){			 
 			 $(".reservationsTable").empty();
 			 
-			 for(i=0; i<data.length; i++){
+			 for(i=0; i<data.length; i++){		
+				 
+
 				 $(".reservationsTable").append(`<tr>
                               <td><span class="font-weight-bold">`+data[i].projectionTimeDto.projectionDto.date+`</span></td>
                               <td><span class="font-weight-bold">`+data[i].projectionTimeDto.time+`</span></td>
                               <td><span class="font-weight-bold">`+data[i].projectionTimeDto.hallDto.cinemaTheatreDto.name+`</span></td>
                               <td><span class="font-weight-bold">`+data[i].projectionTimeDto.projectionDto.movieShowDto.name+`</span></td>
-                              <td><span class="font-weight-bold">`+data[i].projectionTimeDto.hallDto.hallNumber+`</span></td>
-                              <td><span class="font-weight-bold">`+data[i].hallSeatDtos.seatNumber+`</span></td>
-                              <td align="center"><button onclick="cancelReservation(`+data[i].id+`)" type="button" class="btn btn-danger btn-xs" >Otkazi</button></td>
+                              <td align="center"><span class="font-weight-bold">`+data[i].projectionTimeDto.hallDto.hallNumber+`</span></td>
+                           
+                              <td align="center"><button onclick="projectionDetail(`+data[i].id+`)" type="button" class="btn btn-info btn-xs" >Detaljnije</button></td>
+                              <!-- <td align="center"><button onclick="cancelReservation(`+data[i].id+`)" type="button" class="btn btn-danger btn-xs" >Otkazi</button></td> -->
                               
                           </tr>`);
 			 }
@@ -134,11 +137,61 @@ function getReservations(){
 	});
 }
 
+function projectionDetail(id){
+	$('#projectionModal').modal('show');
+	
+	$.ajax({
+		 url: "../api/reservations/"+id,
+		 method: "GET",
+		 success: function(data){
+			 var seats = [];
+			 for(i=0; i<data.hallSeatDtos.length; i++){
+				 var seat = "R" + data.hallSeatDtos[i].seatRow + "B" +data.hallSeatDtos[i].seatNumber;
+				 seats.push(seat);
+			 }
+			 
+			 $("#titleProjection").empty();
+			 $("#titleProjection").append(data.projectionTimeDto.projectionDto.movieShowDto.name);
+			 $("#seatsss").empty();
+			 $("#seatsss").append(`
+					<div class="row">
+					 		<div class="column left" style="background-color: rgb(12, 191, 219);">
+								<p> <img src="`+data.projectionTimeDto.projectionDto.movieShowDto.poster+`"></p> <hr>
+							</div>
+							
+							<div class="column right" style="background-color: rgb(12, 191, 219);">
+								<p id=`+data.id+`>
+									<b>Naziv: `+data.projectionTimeDto.projectionDto.movieShowDto.name+`  <br> 
+									Trajanje: `+data.projectionTimeDto.projectionDto.movieShowDto.duration+` h <br>
+									Datum: `+data.projectionTimeDto.projectionDto.date+` <br>
+									Vrijeme: ` +data.projectionTimeDto.time+ ` <br>
+									Bioskop: ` +data.projectionTimeDto.projectionDto.movieShowDto.cinemaTheatre.name+ ` <br>
+									Adresa: ` +data.projectionTimeDto.projectionDto.movieShowDto.cinemaTheatre.adress+ ` <br>
+									Sala: ` +data.projectionTimeDto.hallDto.hallNumber+ ` <br>
+									Sjedište: ` +seats+  ` <br>
+									
+									</b>
+								</p>
+								
+								<button onclick="cancelReservation(`+id+`)" type="button" class="btn btn-danger btn-xs" >Otkaži</button>
+							
+							</div>
+					<div>
+			 `);
+		 },
+		 error: function(){
+			 alert("Error while getting reservation!");
+		 }
+	});
+	
+}
+
 function cancelReservation(id){
 	$.ajax({
 		 url: "../api/reservations/cancel/"+id,
 		 method: "DELETE",
 		 success: function(data){
+			 $('#projectionModal').modal('toggle');
 			 getReservations();
 		 },
 		 error: function(){
@@ -254,7 +307,6 @@ $(document).on('click','.acceptFriendReq', function(e) {
 		 url: "../api/users/approveFriendRequest/"+id,
 		 method: "GET",
 		 success: function(){
-			 
 				 getFriendRequests();
 				 getFriends();
 		 },

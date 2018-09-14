@@ -246,9 +246,11 @@ public class UserServiceImpl implements UserService {
 		Hibernate.initialize(user.getFriends());
 		Hibernate.initialize(friend.getFriends());
 		
+		List<User> friends = new ArrayList<User>();
 		List<User> userFriends = user.getFriends();
 		List<User> friendFriends = friend.getFriends();
-		
+		friends.addAll(userFriends);
+		friends.addAll(friendFriends);
 		//sa obje strane treba obrisati prijateljstvo
 		
 		for(int i=0; i<userFriends.size(); i++) {

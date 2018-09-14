@@ -10,7 +10,7 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   	<script src="js/toastr.min.js"></script>
 	<script src="js/profile.js"></script> 
-  	
+  	<script src="js/sortTable.js"></script>
   	<link href="css/toastr.css" rel="stylesheet">
   	
   	<!--  <link href="css/profile.css" rel="stylesheet">	-->
@@ -36,6 +36,7 @@
 					<li><a href="userTheatres.html">Pozorišta</a></li>
 					<li><a href="userReservations.html">Rezervacije</a></li>
 					<li class="active"><a href="userFriends.html">Prijatelji</a></li>
+					<!--  <li><a href="#"><button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#friendModal">Dodaj prijatelja</button></a></li> -->
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="userSettings.html"><span class="glyphicon glyphicon-user"></span> Podešavanja</a></li>
@@ -56,12 +57,12 @@
 				<div style="margin-top: 1px;">
 					<table id="dataTable" class="table table-striped" style="width: 100%">
 						<thead class="thead-dark">
-							<tr>
-								<th scope="col">Ime</th>
-								<th scope="col">Prezime</th>
-								<th scope="col">Email</th>
-								<th scope="col">Grad</th>
-								<th scope="col">Telefon</th>
+							<tr class="bg-success">
+								<th onclick="sortTable(0)" scope="col">Ime</th>
+								<th onclick="sortTable(1)" scope="col">Prezime</th>
+								<th onclick="sortTable(2)" scope="col">Email</th>
+								<th onclick="sortTable(3)" scope="col">Grad</th>
+								<th onclick="sortTable(4)" scope="col">Telefon</th>
 								<th scope="col"></th>
 							</tr>
 						</thead>

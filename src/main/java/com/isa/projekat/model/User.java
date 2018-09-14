@@ -55,6 +55,25 @@ public class User implements Serializable {
 
 	public User() {
 	}
+	
+	public User(Long id, String email, String password, String name, String surname, String city, String phone,
+			UserType userType, boolean verified, List<Reservation> reservations, List<User> friends,
+			List<User> friends2, List<User> friendRequests) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.name = name;
+		this.surname = surname;
+		this.city = city;
+		this.phone = phone;
+		this.userType = userType;
+		this.verified = verified;
+		this.reservations = reservations;
+		this.friends = friends;
+		this.friends2 = friends2;
+		this.friendRequests = friendRequests;
+	}
 
 	public Long getId() {
 		return id;
@@ -159,5 +178,7 @@ public class User implements Serializable {
 	public void setFriends2(List<User> friends2) {
 		this.friends2 = friends2;
 	}
+
+	
 
 }

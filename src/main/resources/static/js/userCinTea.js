@@ -7,22 +7,24 @@ var reservations_url = "../api/reservations/getAllForLogged"
 var visits_url = "../api/reservations/getVisitsForLogged"
 var islogged_url = "../api/users/isLoggedIn"
 	
+var inv_counter = 0;
+	
 	function getCinemas(){
-	$.ajax({
-		 url: cinemas,
-		 method: "GET",
-		 success: function(data){
-			 $(".cinemasTable").empty();
-			 for(i=0;i<data.length;i++){
-				 $(".cinemasTable").append(`<tr>
+		$.ajax({
+			url: cinemas,
+			method: "GET",
+			success: function(data){
+				$(".cinemasTable").empty();
+				for(i=0;i<data.length;i++){
+						$(".cinemasTable").append(`<tr>
                               <td>`+data[i].name+`</td>
                               <td>`+data[i].adress+`</td>
                               <td>`+data[i].description+`</td>
                               <td align="center"><button type="button" onclick="generateRepertoire(`+data[i].id+`, '`+data[i].name+`')" id=`+data[i].id+` class="btn btn-info btn-xs" data-toggle="modal" data-target="#cinemaModal">Pogledaj</button></td>
                           </tr>`);
-			 }
-		 },
-		 error: function(){
+			}
+		},
+		error: function(){
 			 alert("Greska");
 		 }
 	});
@@ -52,7 +54,6 @@ var islogged_url = "../api/users/isLoggedIn"
 	}
 
 
-	
 	function generateRepertoire(id, naziv){
 		$.ajax({
 			url: "../api/cinemastheatres/"+id+"/getMoviesShows",
@@ -65,6 +66,7 @@ var islogged_url = "../api/users/isLoggedIn"
 				$("#naslov").append("Repertoar za : " + naziv);
 				for(i=0; i<data.length; i++){
 					$("#movies").append(`
+						<div class="row">
 							<div class="column left" style="background-color: orange;">
 								<p> <img src="`+ data[i].poster + `"></p> <hr>
 							</div>
@@ -81,9 +83,10 @@ var islogged_url = "../api/users/isLoggedIn"
 									id : `+data[i].id+`
 								</p>
 								
-								<button type="button" onclick="reservation(`+data[i].id+`, '`+data[i].name+`')" id="film`+data[i].id+`" class="btn btn-info btn-sm">Rezervisi</button> 
+								<button type="button" onclick="reservation(`+data[i].id+`, '`+data[i].name+`')" id="film`+data[i].id+`" class="btn btn-info btn-xs">Rezervisi</button> 
 							
 							</div>
+						 </div>
 					`);				
 				}
 			},
@@ -96,15 +99,13 @@ var islogged_url = "../api/users/isLoggedIn"
 
 	//DATUM PROJEKCIJE
 	function reservation(id, naziv){
-		
 		$.ajax({
 			url: "../api/movieshows/"+id+"/projections",
 			method: "GET",
 			success: function(data){
-
 					$('#cinemaModal').modal('toggle');
 					$('#modalReservation2').modal('show');	//otvara drugi dijalog
-					
+					//$('#reserveProjection').prop("disabled", true);
 					$("#film").empty();
 					$("#dates").empty();
 					$("#times").empty();
@@ -155,10 +156,10 @@ var islogged_url = "../api/users/isLoggedIn"
 			 url: "../api/movieshows/"+eventId+"/projections/"+projectionId+"/projectionTimes",
 			 method: "GET",
 			 success: function(data){
+				 $("#seatsdiv").empty();
 				 $("#time").empty();
 				 //$("#time").append(`<option>odaberite salu</option>`);
 				 for(i=0;i<data.length;i++){
-					 
 					 $("#time").append(`<option name=`+data[i].id+` id=`+data[i].id+`>`+data[i].time+` *`+data[i].hallDto.id+` *`+data[i].price+`</option>`);	//halldto ispravi
 				 }
 			 },
@@ -275,9 +276,21 @@ var islogged_url = "../api/users/isLoggedIn"
 			 dataType : "json",
 			 data:JSON.stringify(sc.find('a.selected').seatIds),
 			 success: function(res){
+				 $("#invitediv").empty();
+				 $("#invitediv").attr("name",res.id)
+				 inv_counter = res.hallSeatDtos.length;
+				 if(res.hallSeatDtos.length > 1){
+					 //$("#invitediv").append(`<button onclick="generateFriendsForInv()" type="button" id="inviteFriends" class="btn btn-info btn-xs">Pozovite prijatelje</button>`)
+					 generateFriendsForInv();
+				 }
 				 sc.find('a.selected').status('unavailable');
-				 //getReservations();
-				 window.location.href = 'userReservations.html';
+				 //window.location.href = 'userReservations.html';
+				 
+				 
+				 $('#modalReservation2').modal('toggle');
+				 //$('#reserveProjection').prop("disabled", true);
+				 //location.reload();
+				 toastr.success("uspjesna rezervacija");
 			 },
 			 error: function(){
 				 alert("Greska u rezervaciji sjedista!");
@@ -286,29 +299,64 @@ var islogged_url = "../api/users/isLoggedIn"
 		});
 	    
 	});
-
-	//mozes i obrisati
-	function getReservations(){
+	
+	function generateFriendsForInv(){
+		//$('#modalReservation2').modal('hide');
+		$('#inviteModal').modal('show');
 		$.ajax({
-			 url: reservations_url,
+			 url: "../api/users/getFriends/"+loggeduser.id,
 			 method: "GET",
 			 success: function(data){
-				 $(".reservationsTable").empty();
-				 for(i=0;i<data.length;i++){
-					 $(".reservationsTable").append(`<tr>
-	                              <td><span class="font-weight-bold">`+data[i].projectionTimeDto.projectionDto.date+`</span></td>
-	                              <td><span class="font-weight-bold">`+data[i].projectionTimeDto.time+`</span></td>
-	                              <td><span class="font-weight-bold">`+data[i].projectionTimeDto.hallDto.cinemaTheatreDto.name+`</span></td>
-	                              <td><span class="font-weight-bold">`+data[i].projectionTimeDto.projectionDto.movieShowDto.name+`</span></td>
-	                              <td><span class="font-weight-bold">`+data[i].projectionTimeDto.projectionDto.movieShowDto.name+`</span></td>
-	                              <td align="center"><button onclick="cancelReservation(`+data[i].id+`)" type="button" class="btn btn-danger btn-sm" >Otkazi</button></td>
-	                              
-	                          </tr>`);
+				 $("#inviteFriend").append(`<table class="table table-hover table-striped">
+						 	<thead class="thead-dark">
+							<tr>
+								<th scope="col">Ime</th>
+								<th scope="col">Prezime</th>
+								<th scope="col">Email</th>
+								<th scope="col">Grad</th>
+							</tr>
+						 	</thead>
+						 	<tbody id ="invtable"></tbody>
+						 	</table>`);
+				 if(data.length > 0){
+					 for(i=0;i<data.length;i++){
+						 $("#invtable").append(`<tr>
+								 <td>`+data[i].name+`</td>
+								 <td>`+data[i].surname+`</td>
+								 <td>`+data[i].email+`</td>
+								 <td>`+data[i].city+`</td>
+								 <td><button type="button" id=`+data[i].id+` class="btn btn-primary btn-xs invbutton">Pozovi</button></td></tr>`);
+					 }
+				 }else{
+					 toastr.info("nema prijatelja")
 				 }
 			 },
 			 error: function(){
-				 alert("Error while getting reservations!");
+				 alert("greska");
 			 }
 		});
 	}
+	
+	$(document).on('click','.invbutton',function(e){
+		var resId = $("#invitediv").attr("name");
+		var userId = $(this).attr("id");
+		$(this).attr('disabled',true);
+		if(inv_counter-1 > 0){
+			$.ajax({
+				 url: "../api/reservations/"+resId+"/sendInvite/"+userId,
+				 method: "GET",
+				 success: function(data){
+					 toastr.success("prijatelj pozvan");
+					 inv_counter-=1;
+				 },
+				 error: function(){
+					 alert("greska");
+				 }
+			});
+			
+		}else{
+			toastr.error("nema vise sjedista")
+		}
+	});
+
 	

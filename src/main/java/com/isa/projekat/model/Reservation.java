@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Reservation implements Serializable {
@@ -31,6 +32,9 @@ public class Reservation implements Serializable {
 
 	@Column
 	private double price;
+	
+	@OneToMany
+	private List<Invite> invites;
 
 	@Column
 	private boolean visited;
@@ -92,6 +96,14 @@ public class Reservation implements Serializable {
 
 	public void setVisited(boolean visited) {
 		this.visited = visited;
+	}
+
+	public List<Invite> getInvites() {
+		return invites;
+	}
+
+	public void setInvites(List<Invite> invites) {
+		this.invites = invites;
 	}
 
 }

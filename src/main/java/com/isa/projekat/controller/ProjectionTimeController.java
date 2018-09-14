@@ -23,6 +23,7 @@ import com.isa.projekat.model.ReservationDto;
 import com.isa.projekat.model.User;
 import com.isa.projekat.service.HallSeatService;
 import com.isa.projekat.service.ProjectionTimeService;
+import com.isa.projekat.service.ReservationService;
 
 @RestController
 @RequestMapping("/api/movieshows/{msId}/projections/{projectionId}/projectionTimes")
@@ -33,6 +34,9 @@ public class ProjectionTimeController {
 
 	@Autowired
 	private HallSeatService hallSeatService;
+	
+	@Autowired
+	private ReservationService resService;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<ProjectionTimeDto>> getTimesForProjection(@PathVariable Long msId,
@@ -63,6 +67,7 @@ public class ProjectionTimeController {
 
 		if (reservation != null) {
 			ReservationDto reservationDto = new ReservationDto(reservation);
+			resService.sendReservationMail(loggedUser.getId(), reservation.getId());
 			return new ResponseEntity<ReservationDto>(reservationDto, HttpStatus.OK);
 		}
 
