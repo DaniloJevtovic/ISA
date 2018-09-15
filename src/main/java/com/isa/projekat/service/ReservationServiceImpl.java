@@ -1,5 +1,7 @@
 package com.isa.projekat.service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Hibernate;
@@ -7,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.isa.projekat.model.Invite;
@@ -61,7 +64,7 @@ public class ReservationServiceImpl implements ReservationService {
 	public List<Reservation> getUserReservation(Long userId) {
 		// TODO Auto-generated method stub
 		User user = userRepository.findOne(userId);
-		return reservationRepository.findByUser(user);
+		return reservationRepository.findByUserAndVisited(user, false);
 	}
 
 	@Override
@@ -74,23 +77,58 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public Reservation cancelReservation(Long resId) {
 		// TODO Auto-generated method stub
-		Reservation reservation = reservationRepository.findOne(resId);
-		ProjectionTime projectionTime = reservation.getProjectionTime();
-		User user = userRepository.findOne(reservation.getUser().getId());
-		Hibernate.initialize(user.getReservations());
-		Hibernate.initialize(reservation.getHallSeats());
-		Hibernate.initialize(projectionTime.getHallSeats());
-		Hibernate.initialize(reservation.getInvites());
-		reservation.getInvites().clear();
-		List<Invite> invites = invRepository.findByReservation(reservation);
-		invRepository.delete(invites);
-		projectionTime.getHallSeats().removeAll(reservation.getHallSeats());
-		user.getReservations().remove(reservation);
-		userRepository.save(user);
-		reservationRepository.delete(resId);
-		projectionTimeRepository.save(projectionTime);
+		Date date = new Date();
+		boolean flag = false;
+		Calendar calendar1 = Calendar.getInstance();
+		Calendar calendar2 = Calendar.getInstance();
+		Calendar calendar3 = Calendar.getInstance();
+		calendar1.setTime(date);
+		java.sql.Date sqlDateNow = new java.sql.Date(date.getTime());
 
-		return reservation;
+		Reservation reservation = reservationRepository.findOne(resId);
+
+		java.sql.Date sqlDatePrjDate = new java.sql.Date(reservation.getProjectionTime().getProjection().getDate().getTime());
+		java.sql.Date sqlDatePrjTime = new java.sql.Date(reservation.getProjectionTime().getTime().getTime());
+
+		calendar2.setTime(sqlDatePrjTime);
+		calendar3.setTime(sqlDatePrjDate);
+
+		if (sqlDatePrjDate.compareTo(sqlDateNow) >= 0 || calendarCompareSameDate(calendar1, calendar3) == true) {
+			calendar2.add(Calendar.MINUTE, -30);
+			if (calendarCompareSameDate(calendar1, calendar3) == true) {
+				if (calendar1.get(Calendar.HOUR_OF_DAY) > calendar2.get(Calendar.HOUR_OF_DAY)) {
+					flag = true;
+				} else if (calendar2.get(Calendar.HOUR_OF_DAY) == calendar1.get(Calendar.HOUR_OF_DAY)) {
+					if (calendar2.get(Calendar.MINUTE) < calendar1.get(Calendar.MINUTE)) {
+						flag = true;
+					}
+				}
+			}
+		} else {
+			flag = true;
+		}
+
+		if (!flag) {
+			ProjectionTime projectionTime = reservation.getProjectionTime();
+			User user = userRepository.findOne(reservation.getUser().getId());
+			Hibernate.initialize(user.getReservations());
+			Hibernate.initialize(reservation.getHallSeats());
+			Hibernate.initialize(projectionTime.getHallSeats());
+			Hibernate.initialize(reservation.getInvites());
+			reservation.getInvites().clear();
+			List<Invite> invites = invRepository.findByReservation(reservation);
+			invRepository.delete(invites);
+			projectionTime.getHallSeats().removeAll(reservation.getHallSeats());
+			user.getReservations().remove(reservation);
+			userRepository.save(user);
+			reservationRepository.delete(resId);
+			projectionTimeRepository.save(projectionTime);
+
+			return reservation;
+		} else {
+			return null;
+		}
+
 	}
 
 	@Override
@@ -115,6 +153,45 @@ public class ReservationServiceImpl implements ReservationService {
 				//+"\nSjedište: " +reservation.getProjectionTime().getHallSeats()
 				+"\n\nRezervaciju je moguće otkazati najkasnije 30 minuta prije početka projekcije!");
 		javaMailSender.send(mail);
+	}
+
+	@Override
+	@Scheduled(cron = "*/10 * * * * *")
+	public void isVisited() {
+		// TODO Auto-generated method stub
+		Date date = new Date();
+		Calendar calendar1 = Calendar.getInstance();
+		Calendar calendar2 = Calendar.getInstance();
+		Calendar calendar3 = Calendar.getInstance();
+		calendar1.setTime(date);
+		List<Reservation> reservations = reservationRepository.findAll();
+		for (Reservation res : reservations) {
+			boolean flag = false;
+			calendar2.setTime(res.getProjectionTime().getProjection().getDate());
+			calendar3.setTime(res.getProjectionTime().getTime());
+			calendar3.add(Calendar.MINUTE, -30);
+			if (res.isVisited() == false && (calendar1.after(calendar2) || calendarCompareSameDate(calendar1, calendar2))) {
+				if (calendar3.get(Calendar.HOUR_OF_DAY) == calendar1.get(Calendar.HOUR_OF_DAY)) {
+					if (calendar3.get(Calendar.MINUTE) < calendar1.get(Calendar.MINUTE)) {
+						flag = true;
+					}
+				} else {
+					flag = true;
+				}
+			}
+			if (flag) {
+				res.setVisited(true);
+				// oslobodi mjesta!!!
+				reservationRepository.save(res);
+			}
+		}
+	}
+	
+	public boolean calendarCompareSameDate(Calendar c1, Calendar c2) {
+		if(c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) && c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) && c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR)) {
+			return true;
+		}
+		return false;
 	}
 
 }

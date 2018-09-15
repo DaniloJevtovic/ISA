@@ -19,4 +19,6 @@ public interface ReservationService {
 	Reservation cancelReservation(Long resId);
 	
 	void sendReservationMail(Long userId, Long reservationId);
+	
+	public void isVisited();
 }
