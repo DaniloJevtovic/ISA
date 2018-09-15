@@ -193,10 +193,48 @@ function cancelReservation(id){
 		 success: function(data){
 			 $('#projectionModal').modal('toggle');
 			 getReservations();
+			 toastr.info("Rezervacija je uspjesno otkazana");
 		 },
 		 error: function(){
-			 alert("Greska!");
+			 toastr.error("Nije moguce otkazati rezervaciju!");
 		 }
+	});
+}
+
+function getVisits(){
+	$.ajax({
+		 url: visits_url,
+		 method: "GET",
+		 success: function(data){
+			 $(".visitsTable").empty();
+			 for(i=0; i<data.length; i++){
+				 $(".visitsTable").append(`<tr>
+						 <td><span class="font-weight-bold">`+data[i].projectionTimeDto.projectionDto.date+`</span></td>
+						 <td><span class="font-weight-bold">`+data[i].projectionTimeDto.time+`</span></td>
+						 <td><span class="font-weight-bold">`+data[i].projectionTimeDto.hallDto.cinemaTheatreDto.name+`</span></td>
+						 <td><span class="font-weight-bold">`+data[i].projectionTimeDto.projectionDto.movieShowDto.name+`</span></td>
+						 <td><button type="button" onclick="rate(`+data[i].id+`)"; name=`+data[i].id+` class="btn btn-success btn-xs">Ocjeni</button></td>
+				 	</tr>`);
+			 }
+		 },
+		 error: function(){
+			 alert("greska prikaza istorije posjeta");
+		 }
+	});
+}
+
+function rate(id) {
+	$('#rateModal').modal('show');
+	var id = $(this).attr('name');
+	$.ajax({
+		url : "../api/movieshows/"+id+"/"+grade,
+		method: "GET",
+		success: function(){
+				
+		},
+		error: function(){
+			 alert("greska");
+		}
 	});
 }
 

@@ -67,7 +67,7 @@ public class ProjectionTimeController {
 
 		if (reservation != null) {
 			ReservationDto reservationDto = new ReservationDto(reservation);
-			resService.sendReservationMail(loggedUser.getId(), reservation.getId());
+			//resService.sendReservationMail(loggedUser.getId(), reservation.getId());
 			return new ResponseEntity<ReservationDto>(reservationDto, HttpStatus.OK);
 		}
 
