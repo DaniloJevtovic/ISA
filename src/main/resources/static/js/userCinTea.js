@@ -20,6 +20,7 @@ var inv_counter = 0;
                               <td>`+data[i].name+`</td>
                               <td>`+data[i].adress+`</td>
                               <td>`+data[i].description+`</td>
+                              <td align="center">`+data[i].grade+`</td>
                               <td align="center"><button type="button" onclick="generateRepertoire(`+data[i].id+`, '`+data[i].name+`')" id=`+data[i].id+` class="btn btn-info btn-xs" data-toggle="modal" data-target="#cinemaModal">Pogledaj</button></td>
                           </tr>`);
 			}
@@ -42,6 +43,7 @@ var inv_counter = 0;
 							<td>`+data[i].name+`</td>
 							<td>`+data[i].adress+`</td>
 							<td>`+data[i].description+`</td>
+							<td align="center">`+data[i].grade+`</td>
 							<td align="center"><button type="button" onclick="generateRepertoire(`+data[i].id+`, '`+data[i].name+`')" id=`+data[i].id+` class="btn btn-info btn-xs" data-toggle="modal" data-target="#cinemaModal">Pogledaj</button></td>
                           	</tr>`);
 			 }
