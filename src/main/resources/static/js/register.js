@@ -1,6 +1,6 @@
 register_url="../api/users/register"
 
-$(document).on('submit','.form-register', function(e) {
+$(document).on('submit','.register-form', function(e) {
 	e.preventDefault();
 	var flag = false;
 	var p = $('#password').val();
@@ -13,15 +13,20 @@ $(document).on('submit','.form-register', function(e) {
 			dataType : "json",
 			data:formToJSON(),
 			success : function(data) {
-				$('.form-register').empty();
-				$('.form-register').append(`<h3>Uspjesno ste registrovani, provjerite postu.</h3><hr><i><a href="index.html">Povratak na pocetnu stranu.</a></i>`);
+				toastr.success("Uspješna registracija");
+				$('.register-form').empty();
+				$('.register-form').append(`<h3>Uspješno ste se registrovali! 
+					Neophodno je da potvrdite registraciju kako biste mogli da se prijavite.
+					Link za potvrdu registracije Vam je poslat na email adresu.
+					</h3><hr><i><a href="index.html">Povratak na pocetnu stranu.</a></i>`);
+				//window.location.href = 'index.html';
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
-				alert("AJAX ERROR: " + errorThrown + "register");
+				toastr.error("Greska prilikom registracije!");
 			}
 		});
 	}else{
-		alert("Lozinke se moraju poklapati");
+		toastr.error("Lozinke se moraju poklapati!");
 	}
 });
 

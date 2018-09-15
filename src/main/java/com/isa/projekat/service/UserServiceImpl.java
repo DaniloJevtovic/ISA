@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 	public User login(User user) {
 		// TODO Auto-generated method stub
 		User user2 = userRepository.findByEmail(user.getEmail());
-		if (user2 != null) {
+		if (user2 != null && user2.isVerified() != false) {
 			if (user.getPassword().equals(user2.getPassword())) {
 				return user2;
 			}
@@ -87,7 +87,8 @@ public class UserServiceImpl implements UserService {
 		mailMessage.setTo(user.getEmail());
 		mailMessage.setFrom(enviroment.getProperty("spring.mail.username"));
 		mailMessage.setSubject("Verifikacija naloga");
-		mailMessage.setText("Pozdrav " + user.getName() + "," + "\nLink za verifikaciju je sledeci:\n"
+		mailMessage.setText("Poštovani " + user.getName() + "," 
+				+ "\nVerifikaciju Vašeg naloga možete izvršiti na sledećem linku:\n"
 				+ "\nhttp://localhost:1111/api/users/verify/" + user.getId() + "");
 		mailSender.send(mailMessage);
 	}
@@ -96,7 +97,7 @@ public class UserServiceImpl implements UserService {
 	public boolean verifyEmail(Long id) {
 		// TODO Auto-generated method stub
 		User user = userRepository.findById(id);
-		user.setVerified(true); //
+		user.setVerified(true); 
 		userRepository.save(user);
 		return true;
 	}
