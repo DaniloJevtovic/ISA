@@ -1,19 +1,19 @@
 --korisnik
---insert into User (user_name, user_surname, user_email, user_password, user_phone, user_city, user_type, user_verified) values ('Danilo', 'Jevtovic', 'danilo_jevtovic@hotmail.com', 'lemur12', '333-333', 'NS', '0', TRUE)
+insert into User (user_name, user_surname, user_email, user_password, user_phone, user_city, user_type, user_verified) values ('Danilo', 'Jevtovic', 'danilo_jevtovic@hotmail.com', 'lemur12', '333-333', 'NS', '0', TRUE)
 insert into User (user_name, user_surname, user_email, user_password, user_phone, user_city, user_type, user_verified) values ('Lemur', 'Pilicar', 'lemur@hotmail.com', 'lemur12', '132-322', 'ddd', '0', TRUE)
 insert into User (user_name, user_surname, user_email, user_password, user_phone, user_city, user_type, user_verified) values ('Stefa', 'Safari', 'stefa@hotmail.com', 'stefa12', '336-342', 'bbb', '0', TRUE)
 insert into User (user_name, user_surname, user_email, user_password, user_phone, user_city, user_type, user_verified) values ('Govece', 'Jeftanovic', 'govece@hotmail.com', 'govece12', '325-234', 'sss', '2', TRUE)
 
 --pozorista
-insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_type) values ('SNP', 'Pozorisni trg 1', 'Srpsko narodno pozoriste', '1')
-insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_type) values ('Pozoriste mladih', 'Ignjata Pavlasa 4 i 8', 'Opis...', '1')
-insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_type) values ('Novosadsko pozoriste', 'Jovana Subotica 3-5', 'Opis...', '1')
+insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_grade, ct_type) values ('SNP', 'Pozorisni trg 1', 'Srpsko narodno pozoriste',  '4.9','1')
+insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_grade, ct_type) values ('Pozoriste mladih', 'Ignjata Pavlasa 4 i 8', 'Opis...', '4.5', '1')
+insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_grade, ct_type) values ('Novosadsko pozoriste', 'Jovana Subotica 3-5', 'Opis...', '4.2', '1')
 
 --bioskopi
-insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_type) values ('Arena Cinaplex', 'Bulevar Mihajla Pupina 3', 'Opis...', '0')
-insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_type) values ('CineStar', 'Sentandrejski put 11', 'Opis ...', '0')
-insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_type) values ('5D Cinema', 'Zeleznicka 24', 'Nova i spektakularna zabava u Novom Sadu je 5D bioskop!!!', '0')
-insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_type) values ('Lemurov bioskop', 'xxx', 'Dobrodosli u lemurov bioskop, mjesto gdje se pustaju pravi filmovi', '0')
+insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_grade, ct_type) values ('Arena Cinaplex', 'Bulevar Mihajla Pupina 3', 'Opis...', '4.5', '0')
+insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_grade, ct_type) values ('CineStar', 'Sentandrejski put 11', 'Opis ...', '4.3', '0')
+insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_grade, ct_type) values ('5D Cinema', 'Zeleznicka 24', 'Nova i spektakularna zabava u Novom Sadu je 5D bioskop!!!', '4.7', '0')
+insert into cinema_theatre (ct_name, ct_adress, ct_description, ct_grade, ct_type) values ('Lemurov bioskop', 'xxx', 'Dobrodosli u lemurov bioskop, mjesto gdje se pustaju pravi filmovi', '4.8', '0')
 
 --repertoar (1)
 insert into repertoire (cinema_theatre_id) values (1)
@@ -80,10 +80,10 @@ insert into cinema_theatre_halls (cinema_theatre_id, halls_id) values (7, 12)
 
 
 --projekcije za prvi film (datum projekcije)
-insert into projection (prj_date, movie_show_id) values ('2018-04-27', '1')
-insert into projection (prj_date, movie_show_id) values ('2017-04-12', '1')
-insert into projection (prj_date, movie_show_id) values ('2011-04-12', '1')
-insert into projection (prj_date, movie_show_id) values ('2001-04-12', '1')
+insert into projection (prj_date, movie_show_id) values ('2018-09-15', '1')
+insert into projection (prj_date, movie_show_id) values ('2018-09-22', '1')
+insert into projection (prj_date, movie_show_id) values ('2018-04-17', '1')
+insert into projection (prj_date, movie_show_id) values ('2008-05-12', '1')
 --projekcije za drugi film
 insert into projection (prj_date, movie_show_id) values ('2011-04-12', '2')
 insert into projection (prj_date, movie_show_id) values ('2012-04-12', '2')
@@ -327,7 +327,7 @@ insert into hall_seat (seat_number, seat_row, hall_id) values (15, 7, 7)
 
 
 --vrijeme projekcije - prva sala prvi datum
-insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('16:30', '150', 1, 1)
+insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('07:35', '150', 1, 1)
 insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('18:00', '200', 1, 1)
 insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('21:15', '400', 1, 1)
 
@@ -346,6 +346,8 @@ insert into projection_time (pt_time, pt_price, hall_id, projection_id) values (
 insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('22:00', '350', 2, 1)
 insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('22:00', '350', 3, 2)
 insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('22:00', '350', 1, 3)
+
+insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('22:00', '350', 1, 4)
 
 
 --lock stock projection
@@ -378,14 +380,14 @@ insert into projection_projection_times (projection_id, projection_times_id) val
 
 --insert into projection_time_hall_seats (projection_time_id, hall_seats_id) values (1, 1)
 --ISTORIJA POSJETA
-insert into reservation (user_id, projection_time_id, price, visited) values (2, 5, 350, 1)
-insert into user_reservations(user_id, reservations_id) value (2, 1)
-insert into reservation_hall_seats(reservation_id, hall_seats_id) value (1, 41)
+--insert into reservation (user_id, projection_time_id, price, visited) values (2, 6, 350, 1)
+--insert into user_reservations(user_id, reservations_id) value (2, 1)
+--insert into reservation_hall_seats(reservation_id, hall_seats_id) value (1, 41)
 
-insert into reservation (user_id, projection_time_id, price, visited) values (2, 12, 350, 1)
-insert into user_reservations(user_id, reservations_id) value (2, 2)
-insert into reservation_hall_seats(reservation_id, hall_seats_id) value (2, 52)
+--insert into reservation (user_id, projection_time_id, price, visited) values (2, 7, 350, 1)
+--insert into user_reservations(user_id, reservations_id) value (2, 2)
+--insert into reservation_hall_seats(reservation_id, hall_seats_id) value (2, 52)
 
-insert into reservation (user_id, projection_time_id, price, visited) values (2, 1, 150, 1)
-insert into user_reservations(user_id, reservations_id) value (2, 3)
-insert into reservation_hall_seats(reservation_id, hall_seats_id) value (3, 13)
+--insert into reservation (user_id, projection_time_id, price, visited) values (2, 8, 150, 1)
+--insert into user_reservations(user_id, reservations_id) value (2, 3)
+--insert into reservation_hall_seats(reservation_id, hall_seats_id) value (3, 13)
