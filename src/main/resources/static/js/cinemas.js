@@ -33,6 +33,7 @@ var reservations_url = "../api/reservations/getAllForLogged"
 				$("#movies").empty();
 				for(i=0; i<data.length; i++){
 					$("#movies").append(`
+						<div class="row">
 							<div class="column left" style="background-color: orange;">
 								<p> <img src="`+ data[i].poster + `"></p> <hr>
 							</div>
@@ -51,7 +52,7 @@ var reservations_url = "../api/reservations/getAllForLogged"
 								<button type="button" onclick="reservation(`+data[i].id+`)" class="btn btn-info btn-sm">Rezervisi</button> 
 							</div>
 							
-							
+						</div>
 							
 					`);	
 					//<button type="button" onclick="reservation(`+data[i].id+`)" class="btn btn-info btn-sm">Rezervisi</button> <hr> </p>`);	
