@@ -7,7 +7,7 @@ public class CinemaTheatreDto {
 	private String adress;
 	private String description;
 	private CinemaTheatreType type;
-	private String grade;
+	private float grade;
 
 	public CinemaTheatreDto(CinemaTheatre cinemaTheatre) {
 		this.id = cinemaTheatre.getId();
@@ -58,11 +58,11 @@ public class CinemaTheatreDto {
 		this.type = type;
 	}
 
-	public String getGrade() {
+	public float getGrade() {
 		return grade;
 	}
 
-	public void setGrade(String grade) {
+	public void setGrade(float grade) {
 		this.grade = grade;
 	}
 

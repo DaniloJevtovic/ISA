@@ -33,7 +33,7 @@ public class CinemaTheatre implements Serializable {
 	private CinemaTheatreType type;
 
 	@Column(name = "ct_grade", nullable = true)
-	private String grade;
+	private float grade;
 
 	@OneToMany(targetEntity = Hall.class)
 	private List<Hall> halls;
@@ -47,7 +47,7 @@ public class CinemaTheatre implements Serializable {
 	public CinemaTheatre() {
 	}
 
-	public CinemaTheatre(Long id, String name, String adress, String description, CinemaTheatreType type, String grade,
+	public CinemaTheatre(Long id, String name, String adress, String description, CinemaTheatreType type, float grade,
 			List<Hall> halls, Repertoire repertoire, List<MovieShow> movieShows) {
 		super();
 		this.id = id;
@@ -101,11 +101,11 @@ public class CinemaTheatre implements Serializable {
 		this.type = type;
 	}
 
-	public String getGrade() {
+	public float getGrade() {
 		return grade;
 	}
 
-	public void setGrade(String grade) {
+	public void setGrade(float grade) {
 		this.grade = grade;
 	}
 
