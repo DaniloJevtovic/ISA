@@ -1,0 +1,1 @@
+insert into User (user_name, user_surname, user_email, user_password, user_phone, user_city, user_type, user_verified) values ('Krmak', 'Krmcic', 'krmak@hotmail.com', 'krmak12', '555-555', 'NS', '0', TRUE)

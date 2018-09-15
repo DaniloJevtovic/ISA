@@ -46,6 +46,7 @@ public class Data {
 	@PostConstruct
 	private void add() throws ParseException {
 
+	/*	
 		User user = new User();
 		user.setName("Ime");
 		user.setSurname("Prezime");
@@ -151,7 +152,7 @@ public class Data {
 		prService.save(prCK2);
 
 		
-		
+		*/
 		
 		
 		
