@@ -1,6 +1,6 @@
 --korisnik
 insert into User (user_name, user_surname, user_email, user_password, user_phone, user_city, user_type, user_verified) values ('Danilo', 'Jevtovic', 'danilo_jevtovic@hotmail.com', 'lemur12', '333-333', 'NS', '0', TRUE)
-insert into User (user_name, user_surname, user_email, user_password, user_phone, user_city, user_type, user_verified) values ('Lemur', 'Pilicar', 'lemur@hotmail.com', 'lemur12', '132-322', 'ddd', '0', TRUE)
+insert into User (user_name, user_surname, user_email, user_password, user_phone, user_city, user_type, user_verified) values ('Lemur', 'Pilicar', 'lemur.pilicar@gmail.com', 'lemur12', '132-322', 'ddd', '0', TRUE)
 insert into User (user_name, user_surname, user_email, user_password, user_phone, user_city, user_type, user_verified) values ('Stefa', 'Safari', 'stefa@hotmail.com', 'stefa12', '336-342', 'bbb', '0', TRUE)
 insert into User (user_name, user_surname, user_email, user_password, user_phone, user_city, user_type, user_verified) values ('Govece', 'Jeftanovic', 'govece@hotmail.com', 'govece12', '325-234', 'sss', '2', TRUE)
 
@@ -158,16 +158,16 @@ insert into hall_seat (seat_number, seat_row, hall_id) values (8, 3, 1)
 insert into hall_seat (seat_number, seat_row, hall_id) values (9, 3, 1)	
 insert into hall_seat (seat_number, seat_row, hall_id) values (10, 3, 1)	
 --cetvrti red
-insert into hall_seat (seat_number, seat_row, hall_id) values (1, 5, 1)	
-insert into hall_seat (seat_number, seat_row, hall_id) values (2, 5, 1)	
-insert into hall_seat (seat_number, seat_row, hall_id) values (3, 5, 1)	
-insert into hall_seat (seat_number, seat_row, hall_id) values (4, 5, 1)
-insert into hall_seat (seat_number, seat_row, hall_id) values (5, 5, 1)	
-insert into hall_seat (seat_number, seat_row, hall_id) values (6, 5, 1)	
-insert into hall_seat (seat_number, seat_row, hall_id) values (7, 5, 1)	
-insert into hall_seat (seat_number, seat_row, hall_id) values (8, 5, 1)
-insert into hall_seat (seat_number, seat_row, hall_id) values (9, 5, 1)	
-insert into hall_seat (seat_number, seat_row, hall_id) values (10, 5, 1)	
+insert into hall_seat (seat_number, seat_row, hall_id) values (1, 4, 1)	
+insert into hall_seat (seat_number, seat_row, hall_id) values (2, 4, 1)	
+insert into hall_seat (seat_number, seat_row, hall_id) values (3, 4, 1)	
+insert into hall_seat (seat_number, seat_row, hall_id) values (4, 4, 1)
+insert into hall_seat (seat_number, seat_row, hall_id) values (5, 4, 1)	
+insert into hall_seat (seat_number, seat_row, hall_id) values (6, 4, 1)	
+insert into hall_seat (seat_number, seat_row, hall_id) values (7, 4, 1)	
+insert into hall_seat (seat_number, seat_row, hall_id) values (8, 4, 1)
+insert into hall_seat (seat_number, seat_row, hall_id) values (9, 4, 1)	
+insert into hall_seat (seat_number, seat_row, hall_id) values (10, 4, 1)	
 
 
 --sejdista za salu broj 2 -  2x2

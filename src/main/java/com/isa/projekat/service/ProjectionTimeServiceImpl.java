@@ -6,6 +6,9 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.isa.projekat.model.HallSeat;
 import com.isa.projekat.model.Projection;
@@ -37,12 +40,14 @@ public class ProjectionTimeServiceImpl implements ProjectionTimeService {
 	HallSeatRepository hallSeatRepository;
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ, rollbackFor = Exception.class)
 	public ProjectionTime save(ProjectionTime projectionTime) {
 		// TODO Auto-generated method stub
 		return projectionTimeRepository.save(projectionTime);
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<ProjectionTime> findByProjection(Long projectionId) {
 		// TODO Auto-generated method stub
 		Projection projection = projectionRepository.findOne(projectionId);
@@ -50,12 +55,14 @@ public class ProjectionTimeServiceImpl implements ProjectionTimeService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public ProjectionTime findOne(Long projectionId) {
 		// TODO Auto-generated method stub
 		return projectionTimeRepository.findOne(projectionId);
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW, isolation=Isolation.REPEATABLE_READ, rollbackFor = Exception.class)
 	public Reservation reserveSeats(Long projectiontimeId, List<String> seatinfo, Long userId) {
 		// TODO Auto-generated method stub
 		ProjectionTime projectionTime = projectionTimeRepository.findOne(projectiontimeId);
@@ -79,6 +86,7 @@ public class ProjectionTimeServiceImpl implements ProjectionTimeService {
 	}
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<HallSeat> getTakenSeats(Long projectiontimeId) {
 		// TODO Auto-generated method stub
 		ProjectionTime projectionTime = projectionTimeRepository.findOne(projectiontimeId);

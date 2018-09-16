@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.isa.projekat.model.Invite;
 import com.isa.projekat.model.ProjectionTime;
@@ -43,6 +47,7 @@ public class ReservationServiceImpl implements ReservationService {
 	private Environment environment;
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.REPEATABLE_READ, rollbackFor = Exception.class)
 	public Reservation save(Reservation reservation) {
 		// TODO Auto-generated method stub
 		return reservationRepository.save(reservation);
@@ -75,6 +80,7 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Reservation cancelReservation(Long resId) {
 		// TODO Auto-generated method stub
 		Date date = new Date();
@@ -132,6 +138,8 @@ public class ReservationServiceImpl implements ReservationService {
 	}
 
 	@Override
+	@Async
+	@Transactional
 	public void sendReservationMail(Long userId, Long reservationId) {
 		// TODO Auto-generated method stub
 		User user = userRepository.findOne(userId);

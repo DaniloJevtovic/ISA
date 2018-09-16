@@ -8,9 +8,17 @@
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  	<script src="js/toastr.min.js"></script>
-	<script src="js/profile.js"></script> 
-  	<script src="js/sortTable.js"></script>
+  	 
+  	<!--  
+  	<link rel="stylesheet" href="css/bootstrap.min.css">
+  	<script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+  	-->
+  	
+  	<script type="text/javascript" src="js/toastr.min.js"></script>
+	<script type="text/javascript" src="js/profile.js"></script> 
+  	<script type="text/javascript" src="js/sortTable.js"></script>
+  	
   	<link href="css/toastr.css" rel="stylesheet">
   	
   	<!--  <link href="css/profile.css" rel="stylesheet">	-->
@@ -31,7 +39,7 @@
 			</div>
 			<div class="collapse navbar-collapse" id="myNavbar">
 				<ul class="nav navbar-nav">
-					<li><a href="profile.html">Početna</a></li>
+					<li><a href="userProfile.html">Početna</a></li>
 					<li><a href="userCinemas.html">Bioskopi</a></li>
 					<li><a href="userTheatres.html">Pozorišta</a></li>
 					<li><a href="userReservations.html">Rezervacije</a></li>
@@ -49,9 +57,8 @@
 	<div class="container">
 
 		<div class="row">
-
+		
 			<div class="column" id="friends">
-				
 				<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#friendModal">Dodaj prijatelja</button>
 				<h2>Lista prijatelja</h2> <br>
 				<div style="margin-top: 1px;">
@@ -73,17 +80,18 @@
 				</div>
 			</div>
 			<br> <br>
+			
 			<div class="column" id="requests">
 				<h2>Zahtjevi za prijateljstvo</h2> <br>
 				<div style="margin-top: 1px;">
 					<table id="dataTable" class="table table-striped"style="width: 100%">
 						<thead>
 							<tr>
-								<th scope="col">Ime</th>
-								<th scope="col">Prezime</th>
-								<th scope="col">Email</th>
-								<th scope="col">Grad</th>
-								<th scope="col">Telefon</th>
+								<th onclick="sortTable(0)" scope="col">Ime</th>
+								<th onclick="sortTable(1)" scope="col">Prezime</th>
+								<th onclick="sortTable(2)" scope="col">Email</th>
+								<th onclick="sortTable(3)" scope="col">Grad</th>
+								<th onclick="sortTable(4)" scope="col">Telefon</th>
 								<th scope="col"></th>
 							</tr>
 						</thead>

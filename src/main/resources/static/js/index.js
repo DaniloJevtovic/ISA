@@ -11,7 +11,7 @@ function generateNavbar(){
 			 if(user.email != null){
 				 $(".navitems").empty();
 				 $(".navitems").append(`<li class="nav-item  active">
-	                <a class="nav-link" href="profile.html">` +user.name+ `</a>		
+	                <a class="nav-link" href="userProfile.html">` +user.name+ `</a>		
 	              </li>
 	              <li class="nav-item">
 	                <a class="nav-link" href="index.html" onclick="logout()">Odjava</a>

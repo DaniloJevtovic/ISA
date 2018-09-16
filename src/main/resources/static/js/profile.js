@@ -7,50 +7,6 @@ var reservations_url = "../api/reservations/getAllForLogged"
 var visits_url = "../api/reservations/getVisitsForLogged"
 var islogged_url = "../api/users/isLoggedIn"
 
-function getCinemas(){
-	$.ajax({
-		 url: cinemas,
-		 method: "GET",
-		 success: function(data){
-			 $(".cinemasTable").empty();
-			 for(i=0;i<data.length;i++){
-				 $(".cinemasTable").append(`<tr>
-                              <td>`+data[i].name+`</td>
-                              <td>`+data[i].adress+`</td>
-                              <td>`+data[i].description+`</td>
-                              <td align="center"><button type="button" onclick="generateRepertoire(`+data[i].id+`)" id=`+data[i].id+` class="btn btn-info btn-sm" data-toggle="modal" data-target="#cinemaModal">Pogledaj</button></td>
-                          </tr>`);
-			 }
-		 },
-		 error: function(){
-			 alert("Greska");
-		 }
-	});
-	
-}
-
-
-function getTheaters(){
-	$.ajax({
-		 url: theaters,
-		 method: "GET",
-		 success: function(data){
-			 $(".theatersTable").empty();
-			 for(i=0;i<data.length;i++){
-				 $(".theatersTable").append(`<tr>
-						 	<td>`+data[i].name+`</td>
-                            <td>`+data[i].adress+`</td>
-                            <td>`+data[i].description+`</td>
-                            <td align="center"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#exampleModalR">Rezervisi</button></td>
-                           </tr>`);
-			 }
-		 },
-		 error: function(){
-			 alert("Greska");
-		 }
-	});
-}
-	
 $(document).on('submit','#editform', function(e) {
 	e.preventDefault();
 	var p = $('#password').val();
@@ -63,17 +19,16 @@ $(document).on('submit','#editform', function(e) {
 			dataType : "json",
 			data:formToJSON(),
 			success : function(data) {
-				//location.reload();
-				
 				sessionStorage.setItem('loggedUser',JSON.stringify(data));
-				window.location.href = "profile.html"
+				//window.location.href = "userProfile.html"
+				toastr.success("Podaci uspješno ažurirani!");
 			},
 			error : function(XMLHttpRequest, textStatus, errorThrown) {
 				alert("AJAX ERROR: " + errorThrown + "load profile");
 			}
 		});
 	}else{
-		alert("Lozinke se moraju poklapati!");
+		toastr.error("Lozinke se moraju poklapati!");
 	}
 });
 
@@ -172,9 +127,7 @@ function projectionDetail(id){
 									
 									</b>
 								</p>
-								
 								<button onclick="cancelReservation(`+id+`)" type="button" class="btn btn-danger btn-xs" >Otkaži</button>
-							
 							</div>
 					<div>
 			 `);
@@ -246,7 +199,6 @@ function getFriendRequests(){
 			 $(".requestFriendsTable").empty();
 			 for(i=0;i<data.length;i++){
 				 $(".requestFriendsTable").append(`<tr>
-                                
                                    <td>`+data[i].name+`</td>
                                    <td>`+data[i].surname+`</td>
                                    <td>`+data[i].email+`</td>

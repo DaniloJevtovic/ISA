@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.isa.projekat.model.HallSeat;
 import com.isa.projekat.model.Invite;
@@ -83,6 +86,7 @@ public class InviteServiceImpl implements InviteService {
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRES_NEW)
 	public Invite declineInvite(Long inviteId) {
 		// TODO Auto-generated method stub
 		Invite invite = invRepository.findOne(inviteId);
@@ -103,6 +107,7 @@ public class InviteServiceImpl implements InviteService {
 	}
 
 	@Override
+	@Async
 	public void sendInviteEmail(Long userId, Long inviteId) {
 		// TODO Auto-generated method stub
 		User user = userRepository.findOne(userId);

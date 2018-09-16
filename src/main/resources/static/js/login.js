@@ -10,14 +10,14 @@ $(document).on('submit','.form-signin', function(e) {
 		data:formToJSON(),
 		success : function(data) {
 			if(data != null) {
-			sessionStorage.setItem('loggedUser',JSON.stringify(data));
-			window.location.href='profile.html';	//ulogovanog korisnika prebaci na njegovu stranicu
-			}else{
-				
+				sessionStorage.setItem('loggedUser',JSON.stringify(data));
+				window.location.href='userProfile.html';
+			} else{
+				toastr.error("neispravni podaci");
 			}
 		},
-		error : function(XMLHttpRequest, textStatus, errorThrown) {
-			alert("AJAX ERROR: " + errorThrown+ "login");
+		error : function() {
+			toastr.error("neispravni podaci");
 		}
 	});
 });
