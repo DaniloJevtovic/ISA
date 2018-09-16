@@ -75,7 +75,7 @@ public class UserController {
 	@RequestMapping(value = "/verify/{id}", method = RequestMethod.GET)
 	public ResponseEntity<String> verifyUser(@PathVariable Long id) throws Exception {
 		userService.verifyEmail(id);
-		return new ResponseEntity<String>("Uspjesno ste verifikovani!", HttpStatus.ACCEPTED);
+		return new ResponseEntity<String>("Uspjesno ste verifikovani, sada se mozete prijaviti!", HttpStatus.ACCEPTED);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -100,11 +100,11 @@ public class UserController {
 		User reciverRequest = userService.sendFriendRequest(senderRequest.getId(), reciverId);
 
 		if (reciverRequest != null) {
-			return new ResponseEntity<String>("friends request sent", HttpStatus.ACCEPTED);
+			return new ResponseEntity<String>("zahtjev poslat", HttpStatus.ACCEPTED);
 		}
 
 		else {
-			return new ResponseEntity<String>("alredy sent", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("zahtjev vec poslat", HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -112,7 +112,7 @@ public class UserController {
 	public ResponseEntity<String> approveFriendRequest(@PathVariable Long sender, HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute("loggedUser");
 		userService.approveFriendRequest(sender, user.getId());
-		return new ResponseEntity<String>("request approved", HttpStatus.ACCEPTED);
+		return new ResponseEntity<String>("zahtjev odobren", HttpStatus.ACCEPTED);
 	}
 	
 	@RequestMapping(value="/declineFriendRequest/{pendingId}", method=RequestMethod.GET)

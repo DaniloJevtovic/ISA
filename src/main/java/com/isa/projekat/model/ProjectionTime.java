@@ -42,7 +42,7 @@ public class ProjectionTime implements Serializable {
 	
 	/*
 	@Version
-	@Column(name = "VERSION")
+	//@Column(name = "VERSION")
 	private Long version;
 	*/
 	

@@ -26,4 +26,10 @@ public class MovieShowServiceImpl implements MovieShowService {
 		return msRepository.save(movieShow);
 	}
 
+	@Override
+	public MovieShow rateMS(Long id, int grade) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

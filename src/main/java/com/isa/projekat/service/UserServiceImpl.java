@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User save(User user) {
 		// TODO Auto-generated method stub
+		//registracija
 		User user2 = userRepository.findByEmail(user.getEmail());
 		if(user2 == null) {
 			user.setVerified(false);

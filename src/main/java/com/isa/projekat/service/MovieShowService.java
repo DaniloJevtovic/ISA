@@ -9,4 +9,6 @@ public interface MovieShowService {
 	List<MovieShow> findAll();
 
 	MovieShow save(MovieShow movieShow);
+	
+	MovieShow rateMS(Long id, int grade);
 }

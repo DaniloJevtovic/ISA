@@ -42,7 +42,7 @@ public class MovieShow implements Serializable {
 	private String duration;
 
 	@Column(name = "ms_rating", nullable = false)
-	private String rating;
+	private String rating;	//stavi float
 
 	@Column(name = "ms_director", nullable = false)
 	private String director;

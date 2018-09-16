@@ -84,9 +84,9 @@ public class ReservationController {
 
 	@RequestMapping(value = "/{resId}/sendInvite/{userId}", method = RequestMethod.GET)
 	public ResponseEntity<InviteDto> sendInvite(@PathVariable Long resId, @PathVariable Long userId) {
-		Invite inv = inviteService.sendInvite(resId, userId);
-		InviteDto inviteDto = new InviteDto(inv);
-		inviteService.sendInviteEmail(userId, inv.getId());
+		Invite invite = inviteService.sendInvite(resId, userId);
+		InviteDto inviteDto = new InviteDto(invite);
+		inviteService.sendInviteEmail(userId, invite.getId());
 		return new ResponseEntity<InviteDto>(inviteDto, HttpStatus.OK);
 	}
 

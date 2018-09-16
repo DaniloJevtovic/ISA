@@ -72,8 +72,10 @@ public class ProjectionTimeServiceImpl implements ProjectionTimeService {
 			String arr[] = seatinfo.get(i).split("_");
 			HallSeat seat = hallSeatRepository.findSeatByHallAndRowAndNumber(projectionTime.getHall(),
 					Integer.parseInt(arr[0]), Integer.parseInt(arr[1]));
-			if(projectionTime.getHallSeats().contains(seat))
+			if(projectionTime.getHallSeats().contains(seat)) {
 				return null;
+			}
+				
 			resSeats.add(seat);
 			projectionTime.getHallSeats().add(seat);
 		}

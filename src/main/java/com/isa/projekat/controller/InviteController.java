@@ -26,7 +26,7 @@ public class InviteController {
 		if (inviteDto.getId() != null) {
 			return new ResponseEntity<String>("uspjesno ste prihvatili zahtjev za projekciju", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>("error", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("greska", HttpStatus.BAD_REQUEST);
 		}
 
 	}
@@ -38,7 +38,7 @@ public class InviteController {
 		if (inviteDto.getId() != null) {
 			return new ResponseEntity<String>("zahtjev odbijen", HttpStatus.OK);
 		} else {
-			return new ResponseEntity<String>("error", HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("greska", HttpStatus.BAD_REQUEST);
 		}
 	}
 
