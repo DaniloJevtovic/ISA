@@ -39,8 +39,7 @@ public class ProjectionTimeController {
 	private ReservationService resService;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<ProjectionTimeDto>> getTimesForProjection(@PathVariable Long msId,
-			@PathVariable Long projectionId) {
+	public ResponseEntity<List<ProjectionTimeDto>> getTimesForProjection(@PathVariable Long msId, @PathVariable Long projectionId) {
 		List<ProjectionTimeDto> projectionTimeDtos = new ArrayList<ProjectionTimeDto>();
 		for (ProjectionTime projectionTime : projectionTimeService.findByProjection(projectionId)) {
 			projectionTimeDtos.add(new ProjectionTimeDto(projectionTime));
@@ -60,8 +59,7 @@ public class ProjectionTimeController {
 	}
 
 	@RequestMapping(value = "/{projectionId}/seats", method = RequestMethod.POST)
-	public ResponseEntity<ReservationDto> reserveSeats(@RequestBody List<String> seatInfo,
-			@PathVariable Long projectionId, HttpServletRequest request) {
+	public ResponseEntity<ReservationDto> reserveSeats(@RequestBody List<String> seatInfo, @PathVariable Long projectionId, HttpServletRequest request) {
 		User loggedUser = (User) request.getSession().getAttribute("loggedUser");
 		Reservation reservation = projectionTimeService.reserveSeats(projectionId, seatInfo, loggedUser.getId());
 

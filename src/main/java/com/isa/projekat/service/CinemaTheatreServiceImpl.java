@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.isa.projekat.model.CinemaTheatre;
 import com.isa.projekat.model.CinemaTheatreType;
@@ -13,7 +12,6 @@ import com.isa.projekat.model.MovieShow;
 import com.isa.projekat.repository.CinemaTheatreRepository;
 
 @Service
-@Transactional
 public class CinemaTheatreServiceImpl implements CinemaTheatreService {
 
 	@Autowired
