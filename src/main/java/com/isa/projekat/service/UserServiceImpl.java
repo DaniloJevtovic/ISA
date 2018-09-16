@@ -8,15 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.isa.projekat.model.User;
 import com.isa.projekat.model.UserType;
 import com.isa.projekat.repository.UserRepository;
 
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired
@@ -31,9 +30,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User save(User user) {
 		// TODO Auto-generated method stub
-		user.setVerified(false);
-		user.setUserType(UserType.REGISTROVAN); // samo privremeno!!! ispravi
-		return userRepository.save(user);
+		User user2 = userRepository.findByEmail(user.getEmail());
+		if(user2 == null) {
+			user.setVerified(false);
+			user.setUserType(UserType.REGISTROVAN);
+			userRepository.save(user);
+			return user;
+		}
+		
+		return null;
+		
+		//user.setVerified(false);
+		//user.setUserType(UserType.REGISTROVAN); // samo privremeno!!! ispravi
+		//return userRepository.save(user);
 	}
 
 	@Override
@@ -81,6 +90,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Async
 	public void sendVerificationMail(User user) {
 		// TODO Auto-generated method stub
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
