@@ -80,24 +80,24 @@ insert into cinema_theatre_halls (cinema_theatre_id, halls_id) values (7, 12)
 
 
 --projekcije za prvi film (datum projekcije)
-insert into projection (prj_date, movie_show_id) values ('2018-09-15', '1')
-insert into projection (prj_date, movie_show_id) values ('2018-09-22', '1')
-insert into projection (prj_date, movie_show_id) values ('2018-04-17', '1')
-insert into projection (prj_date, movie_show_id) values ('2008-05-12', '1')
+insert into projection (prj_date, movie_show_id) values ('2018-09-29', '1')
+insert into projection (prj_date, movie_show_id) values ('2018-09-30', '1')
+insert into projection (prj_date, movie_show_id) values ('2018-10-17', '1')
+insert into projection (prj_date, movie_show_id) values ('2018-11-12', '1')
 --projekcije za drugi film
-insert into projection (prj_date, movie_show_id) values ('2011-04-12', '2')
-insert into projection (prj_date, movie_show_id) values ('2012-04-12', '2')
+insert into projection (prj_date, movie_show_id) values ('2018-10-05', '2')
+insert into projection (prj_date, movie_show_id) values ('2018-11-18', '2')
 --projekcije za treci film
-insert into projection (prj_date, movie_show_id) values ('2011-04-12', '3')
+insert into projection (prj_date, movie_show_id) values ('2018-12-12', '3')
 
 --projekcija za lock-stock 
-insert into projection (prj_date, movie_show_id) values ('2018-09-15', '4')
-insert into projection (prj_date, movie_show_id) values ('2018-09-16', '4')
-insert into projection (prj_date, movie_show_id) values ('2018-09-20', '4')
 insert into projection (prj_date, movie_show_id) values ('2018-09-26', '4')
 insert into projection (prj_date, movie_show_id) values ('2018-09-27', '4')
 insert into projection (prj_date, movie_show_id) values ('2018-09-28', '4')
-insert into projection (prj_date, movie_show_id) values ('2018-09-29', '4')
+insert into projection (prj_date, movie_show_id) values ('2018-10-01', '4')
+insert into projection (prj_date, movie_show_id) values ('2018-10-02', '4')
+insert into projection (prj_date, movie_show_id) values ('2018-10-03', '4')
+insert into projection (prj_date, movie_show_id) values ('2018-10-07', '4')
 
 
 --projekcija-film - prvi film (datum projekcije) - arena cinaplex
@@ -327,7 +327,7 @@ insert into hall_seat (seat_number, seat_row, hall_id) values (15, 7, 7)
 
 
 --vrijeme projekcije - prva sala prvi datum
-insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('07:35', '150', 1, 1)
+insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('14:30', '150', 1, 1)
 insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('18:00', '200', 1, 1)
 insert into projection_time (pt_time, pt_price, hall_id, projection_id) values ('21:15', '400', 1, 1)
 
